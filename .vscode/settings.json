@@ -1,0 +1,20 @@
+{
+  "dart.flutterSdkPath": ".fvm\\versions\\3.19.3",
+  "search.exclude": {
+    "**/.fvm": true
+  },
+  "files.watcherExclude": {
+    "**/.fvm": true
+  },
+  "[dart]": {
+    "editor.defaultFormatter": "Dart-Code.dart-code",
+    "editor.formatOnSave": true
+  },
+  "cSpell.words": [
+    "davigmacode",
+    "Irfan",
+    "lerp",
+    "Taufik",
+    "Vigma"
+  ],
+}
