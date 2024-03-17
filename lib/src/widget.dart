@@ -31,6 +31,336 @@ class WxText extends ConstrainedText {
     this.variant,
   });
 
+  /// Create a large display text widget
+  const WxText.displayLarge(
+    super.text, {
+    super.key,
+    super.style,
+    super.strutStyle,
+    super.textAlign,
+    super.textDirection,
+    super.textScaler,
+    super.locale,
+    super.softWrap,
+    super.overflow,
+    super.maxLines,
+    super.minLines,
+    super.semanticsLabel,
+    super.textWidthBasis,
+    super.textHeightBehavior,
+    super.highlight,
+    super.highlightStyle,
+    super.highlightCaseSensitive,
+  }) : variant = WxTextVariant.displayLarge;
+
+  /// Create a medium display text widget
+  const WxText.displayMedium(
+    super.text, {
+    super.key,
+    super.style,
+    super.strutStyle,
+    super.textAlign,
+    super.textDirection,
+    super.textScaler,
+    super.locale,
+    super.softWrap,
+    super.overflow,
+    super.maxLines,
+    super.minLines,
+    super.semanticsLabel,
+    super.textWidthBasis,
+    super.textHeightBehavior,
+    super.highlight,
+    super.highlightStyle,
+    super.highlightCaseSensitive,
+  }) : variant = WxTextVariant.displayMedium;
+
+  /// Create a small display text widget
+  const WxText.displaySmall(
+    super.text, {
+    super.key,
+    super.style,
+    super.strutStyle,
+    super.textAlign,
+    super.textDirection,
+    super.textScaler,
+    super.locale,
+    super.softWrap,
+    super.overflow,
+    super.maxLines,
+    super.minLines,
+    super.semanticsLabel,
+    super.textWidthBasis,
+    super.textHeightBehavior,
+    super.highlight,
+    super.highlightStyle,
+    super.highlightCaseSensitive,
+  }) : variant = WxTextVariant.displaySmall;
+
+  /// Create a large headline text widget
+  const WxText.headlineLarge(
+    super.text, {
+    super.key,
+    super.style,
+    super.strutStyle,
+    super.textAlign,
+    super.textDirection,
+    super.textScaler,
+    super.locale,
+    super.softWrap,
+    super.overflow,
+    super.maxLines,
+    super.minLines,
+    super.semanticsLabel,
+    super.textWidthBasis,
+    super.textHeightBehavior,
+    super.highlight,
+    super.highlightStyle,
+    super.highlightCaseSensitive,
+  }) : variant = WxTextVariant.headlineLarge;
+
+  /// Create a medium headline text widget
+  const WxText.headlineMedium(
+    super.text, {
+    super.key,
+    super.style,
+    super.strutStyle,
+    super.textAlign,
+    super.textDirection,
+    super.textScaler,
+    super.locale,
+    super.softWrap,
+    super.overflow,
+    super.maxLines,
+    super.minLines,
+    super.semanticsLabel,
+    super.textWidthBasis,
+    super.textHeightBehavior,
+    super.highlight,
+    super.highlightStyle,
+    super.highlightCaseSensitive,
+  }) : variant = WxTextVariant.headlineMedium;
+
+  /// Create a small headline text widget
+  const WxText.headlineSmall(
+    super.text, {
+    super.key,
+    super.style,
+    super.strutStyle,
+    super.textAlign,
+    super.textDirection,
+    super.textScaler,
+    super.locale,
+    super.softWrap,
+    super.overflow,
+    super.maxLines,
+    super.minLines,
+    super.semanticsLabel,
+    super.textWidthBasis,
+    super.textHeightBehavior,
+    super.highlight,
+    super.highlightStyle,
+    super.highlightCaseSensitive,
+  }) : variant = WxTextVariant.headlineSmall;
+
+  /// Create a large body text widget
+  const WxText.bodyLarge(
+    super.text, {
+    super.key,
+    super.style,
+    super.strutStyle,
+    super.textAlign,
+    super.textDirection,
+    super.textScaler,
+    super.locale,
+    super.softWrap,
+    super.overflow,
+    super.maxLines,
+    super.minLines,
+    super.semanticsLabel,
+    super.textWidthBasis,
+    super.textHeightBehavior,
+    super.highlight,
+    super.highlightStyle,
+    super.highlightCaseSensitive,
+  }) : variant = WxTextVariant.bodyLarge;
+
+  /// Create a medium body text widget
+  const WxText.bodyMedium(
+    super.text, {
+    super.key,
+    super.style,
+    super.strutStyle,
+    super.textAlign,
+    super.textDirection,
+    super.textScaler,
+    super.locale,
+    super.softWrap,
+    super.overflow,
+    super.maxLines,
+    super.minLines,
+    super.semanticsLabel,
+    super.textWidthBasis,
+    super.textHeightBehavior,
+    super.highlight,
+    super.highlightStyle,
+    super.highlightCaseSensitive,
+  }) : variant = WxTextVariant.bodyMedium;
+
+  /// Create a small body text widget
+  const WxText.bodySmall(
+    super.text, {
+    super.key,
+    super.style,
+    super.strutStyle,
+    super.textAlign,
+    super.textDirection,
+    super.textScaler,
+    super.locale,
+    super.softWrap,
+    super.overflow,
+    super.maxLines,
+    super.minLines,
+    super.semanticsLabel,
+    super.textWidthBasis,
+    super.textHeightBehavior,
+    super.highlight,
+    super.highlightStyle,
+    super.highlightCaseSensitive,
+  }) : variant = WxTextVariant.bodySmall;
+
+  /// Create a large label text widget
+  const WxText.labelLarge(
+    super.text, {
+    super.key,
+    super.style,
+    super.strutStyle,
+    super.textAlign,
+    super.textDirection,
+    super.textScaler,
+    super.locale,
+    super.softWrap,
+    super.overflow,
+    super.maxLines,
+    super.minLines,
+    super.semanticsLabel,
+    super.textWidthBasis,
+    super.textHeightBehavior,
+    super.highlight,
+    super.highlightStyle,
+    super.highlightCaseSensitive,
+  }) : variant = WxTextVariant.labelLarge;
+
+  /// Create a medium label text widget
+  const WxText.labelMedium(
+    super.text, {
+    super.key,
+    super.style,
+    super.strutStyle,
+    super.textAlign,
+    super.textDirection,
+    super.textScaler,
+    super.locale,
+    super.softWrap,
+    super.overflow,
+    super.maxLines,
+    super.minLines,
+    super.semanticsLabel,
+    super.textWidthBasis,
+    super.textHeightBehavior,
+    super.highlight,
+    super.highlightStyle,
+    super.highlightCaseSensitive,
+  }) : variant = WxTextVariant.labelMedium;
+
+  /// Create a small label text widget
+  const WxText.labelSmall(
+    super.text, {
+    super.key,
+    super.style,
+    super.strutStyle,
+    super.textAlign,
+    super.textDirection,
+    super.textScaler,
+    super.locale,
+    super.softWrap,
+    super.overflow,
+    super.maxLines,
+    super.minLines,
+    super.semanticsLabel,
+    super.textWidthBasis,
+    super.textHeightBehavior,
+    super.highlight,
+    super.highlightStyle,
+    super.highlightCaseSensitive,
+  }) : variant = WxTextVariant.labelSmall;
+
+  /// Create a large title text widget
+  const WxText.titleLarge(
+    super.text, {
+    super.key,
+    super.style,
+    super.strutStyle,
+    super.textAlign,
+    super.textDirection,
+    super.textScaler,
+    super.locale,
+    super.softWrap,
+    super.overflow,
+    super.maxLines,
+    super.minLines,
+    super.semanticsLabel,
+    super.textWidthBasis,
+    super.textHeightBehavior,
+    super.highlight,
+    super.highlightStyle,
+    super.highlightCaseSensitive,
+  }) : variant = WxTextVariant.titleLarge;
+
+  /// Create a medium title text widget
+  const WxText.titleMedium(
+    super.text, {
+    super.key,
+    super.style,
+    super.strutStyle,
+    super.textAlign,
+    super.textDirection,
+    super.textScaler,
+    super.locale,
+    super.softWrap,
+    super.overflow,
+    super.maxLines,
+    super.minLines,
+    super.semanticsLabel,
+    super.textWidthBasis,
+    super.textHeightBehavior,
+    super.highlight,
+    super.highlightStyle,
+    super.highlightCaseSensitive,
+  }) : variant = WxTextVariant.titleMedium;
+
+  /// Create a small title text widget
+  const WxText.titleSmall(
+    super.text, {
+    super.key,
+    super.style,
+    super.strutStyle,
+    super.textAlign,
+    super.textDirection,
+    super.textScaler,
+    super.locale,
+    super.softWrap,
+    super.overflow,
+    super.maxLines,
+    super.minLines,
+    super.semanticsLabel,
+    super.textWidthBasis,
+    super.textHeightBehavior,
+    super.highlight,
+    super.highlightStyle,
+    super.highlightCaseSensitive,
+  }) : variant = WxTextVariant.titleSmall;
+
   /// The variant text style to apply.
   final WxTextVariantBuilder? variant;
 
@@ -39,7 +369,9 @@ class WxText extends ConstrainedText {
     return WxTextStyler(
       style: style,
       variant: variant,
-      child: super.build(context),
+      child: Builder(builder: (context) {
+        return super.build(context);
+      }),
     );
   }
 }
