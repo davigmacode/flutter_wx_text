@@ -28,6 +28,7 @@ class ConstrainedText extends ParsedText {
     super.highlightStyle,
     super.highlightOnTap,
     super.filter,
+    super.filterDisabled,
     bool filterCaseSensitive = false,
     bool filterMultiLine = false,
     bool filterUnicode = false,

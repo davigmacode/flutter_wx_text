@@ -22,6 +22,7 @@ class ParsedText extends Text {
     this.highlightStyle,
     this.highlightOnTap,
     this.filter = const [],
+    this.filterDisabled = false,
     this.caseSensitive = false,
     this.multiLine = false,
     this.unicode = false,
@@ -41,6 +42,8 @@ class ParsedText extends Text {
   final WxTextFilterTap? highlightOnTap;
 
   final List<WxTextFilter> filter;
+
+  final bool filterDisabled;
 
   /// If [filter] not empty,
   /// then Dart ignores the case of letters when matching.
@@ -64,6 +67,10 @@ class ParsedText extends Text {
 
   @override
   Widget build(BuildContext context) {
+    if (filterDisabled) {
+      return super.build(context);
+    }
+
     final highlightSearch = highlight;
     final effectiveFilter = [
       ...filter,
