@@ -45,27 +45,30 @@ class _MyHomePageState extends State<MyHomePage> {
           constraints: const BoxConstraints(
             maxWidth: 500,
           ),
-          child: const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20),
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 20,
+              vertical: 20,
+            ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                ColoredBox(
+                const ColoredBox(
                   color: Colors.black12,
                   child: WxText.headlineMedium(
                     'Text with a minimum of 3 lines',
                     minLines: 3,
                   ),
                 ),
-                SizedBox(height: 20),
-                WxText.bodyLarge(
+                const SizedBox(height: 20),
+                const WxText.bodyLarge(
                   'Highlighted text, Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum',
                   highlight: 'dolor',
                   maxLines: 3,
                   overflow: TextOverflow.ellipsis,
                 ),
-                SizedBox(height: 20),
-                WxTextStyler(
+                const SizedBox(height: 20),
+                const WxTextStyler(
                   variant: WxTextVariant.headlineLarge,
                   child: Wrap(
                     spacing: 5,
@@ -77,6 +80,15 @@ class _MyHomePageState extends State<MyHomePage> {
                       WxText('widgets'),
                     ],
                   ),
+                ),
+                const SizedBox(height: 20),
+                WxText.bodyLarge(
+                  'Highlighted text, Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut https://github.com/davigmacode/flutter_text labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in my@email.com voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum',
+                  highlight: 'de',
+                  filter: [
+                    WxTextFilter.email(onTap: (_) {}),
+                    WxTextFilter.url(onTap: (_) {}),
+                  ],
                 ),
               ],
             ),

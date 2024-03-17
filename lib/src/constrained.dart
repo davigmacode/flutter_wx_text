@@ -1,12 +1,12 @@
 import 'package:flutter/widgets.dart';
-import 'highlighted.dart';
+import 'parsed.dart';
 
 const _transparentColor = Color(0x00000000);
 
 /// The ConstrainedText Widget provides a text entry area
 /// with limitations on the number of displayed lines,
 /// ensuring content remains concise and visually appealing.
-class ConstrainedText extends HighlightedText {
+class ConstrainedText extends ParsedText {
   /// Create a constrained text widget
   const ConstrainedText(
     super.text, {
@@ -26,8 +26,18 @@ class ConstrainedText extends HighlightedText {
     super.textHeightBehavior,
     super.highlight,
     super.highlightStyle,
-    super.highlightCaseSensitive = false,
-  });
+    super.highlightOnTap,
+    super.filter,
+    bool filterCaseSensitive = false,
+    bool filterMultiLine = false,
+    bool filterUnicode = false,
+    bool filterDotAll = false,
+  }) : super(
+          caseSensitive: filterCaseSensitive,
+          multiLine: filterMultiLine,
+          unicode: filterUnicode,
+          dotAll: filterDotAll,
+        );
 
   /// Defines the minimum number of lines
   /// the widget will always display,

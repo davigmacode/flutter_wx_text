@@ -27,7 +27,12 @@ class WxText extends ConstrainedText {
     super.textHeightBehavior,
     super.highlight,
     super.highlightStyle,
-    super.highlightCaseSensitive,
+    super.highlightOnTap,
+    super.filter,
+    super.filterCaseSensitive,
+    super.filterMultiLine,
+    super.filterUnicode,
+    super.filterDotAll,
     this.variant,
   });
 
@@ -50,7 +55,12 @@ class WxText extends ConstrainedText {
     super.textHeightBehavior,
     super.highlight,
     super.highlightStyle,
-    super.highlightCaseSensitive,
+    super.highlightOnTap,
+    super.filter,
+    super.filterCaseSensitive,
+    super.filterMultiLine,
+    super.filterUnicode,
+    super.filterDotAll,
   }) : variant = WxTextVariant.displayLarge;
 
   /// Create a medium display text widget
@@ -72,7 +82,12 @@ class WxText extends ConstrainedText {
     super.textHeightBehavior,
     super.highlight,
     super.highlightStyle,
-    super.highlightCaseSensitive,
+    super.highlightOnTap,
+    super.filter,
+    super.filterCaseSensitive,
+    super.filterMultiLine,
+    super.filterUnicode,
+    super.filterDotAll,
   }) : variant = WxTextVariant.displayMedium;
 
   /// Create a small display text widget
@@ -94,7 +109,12 @@ class WxText extends ConstrainedText {
     super.textHeightBehavior,
     super.highlight,
     super.highlightStyle,
-    super.highlightCaseSensitive,
+    super.highlightOnTap,
+    super.filter,
+    super.filterCaseSensitive,
+    super.filterMultiLine,
+    super.filterUnicode,
+    super.filterDotAll,
   }) : variant = WxTextVariant.displaySmall;
 
   /// Create a large headline text widget
@@ -116,7 +136,12 @@ class WxText extends ConstrainedText {
     super.textHeightBehavior,
     super.highlight,
     super.highlightStyle,
-    super.highlightCaseSensitive,
+    super.highlightOnTap,
+    super.filter,
+    super.filterCaseSensitive,
+    super.filterMultiLine,
+    super.filterUnicode,
+    super.filterDotAll,
   }) : variant = WxTextVariant.headlineLarge;
 
   /// Create a medium headline text widget
@@ -138,7 +163,12 @@ class WxText extends ConstrainedText {
     super.textHeightBehavior,
     super.highlight,
     super.highlightStyle,
-    super.highlightCaseSensitive,
+    super.highlightOnTap,
+    super.filter,
+    super.filterCaseSensitive,
+    super.filterMultiLine,
+    super.filterUnicode,
+    super.filterDotAll,
   }) : variant = WxTextVariant.headlineMedium;
 
   /// Create a small headline text widget
@@ -160,7 +190,12 @@ class WxText extends ConstrainedText {
     super.textHeightBehavior,
     super.highlight,
     super.highlightStyle,
-    super.highlightCaseSensitive,
+    super.highlightOnTap,
+    super.filter,
+    super.filterCaseSensitive,
+    super.filterMultiLine,
+    super.filterUnicode,
+    super.filterDotAll,
   }) : variant = WxTextVariant.headlineSmall;
 
   /// Create a large body text widget
@@ -182,7 +217,12 @@ class WxText extends ConstrainedText {
     super.textHeightBehavior,
     super.highlight,
     super.highlightStyle,
-    super.highlightCaseSensitive,
+    super.highlightOnTap,
+    super.filter,
+    super.filterCaseSensitive,
+    super.filterMultiLine,
+    super.filterUnicode,
+    super.filterDotAll,
   }) : variant = WxTextVariant.bodyLarge;
 
   /// Create a medium body text widget
@@ -204,7 +244,12 @@ class WxText extends ConstrainedText {
     super.textHeightBehavior,
     super.highlight,
     super.highlightStyle,
-    super.highlightCaseSensitive,
+    super.highlightOnTap,
+    super.filter,
+    super.filterCaseSensitive,
+    super.filterMultiLine,
+    super.filterUnicode,
+    super.filterDotAll,
   }) : variant = WxTextVariant.bodyMedium;
 
   /// Create a small body text widget
@@ -226,7 +271,12 @@ class WxText extends ConstrainedText {
     super.textHeightBehavior,
     super.highlight,
     super.highlightStyle,
-    super.highlightCaseSensitive,
+    super.highlightOnTap,
+    super.filter,
+    super.filterCaseSensitive,
+    super.filterMultiLine,
+    super.filterUnicode,
+    super.filterDotAll,
   }) : variant = WxTextVariant.bodySmall;
 
   /// Create a large label text widget
@@ -248,7 +298,12 @@ class WxText extends ConstrainedText {
     super.textHeightBehavior,
     super.highlight,
     super.highlightStyle,
-    super.highlightCaseSensitive,
+    super.highlightOnTap,
+    super.filter,
+    super.filterCaseSensitive,
+    super.filterMultiLine,
+    super.filterUnicode,
+    super.filterDotAll,
   }) : variant = WxTextVariant.labelLarge;
 
   /// Create a medium label text widget
@@ -270,7 +325,12 @@ class WxText extends ConstrainedText {
     super.textHeightBehavior,
     super.highlight,
     super.highlightStyle,
-    super.highlightCaseSensitive,
+    super.highlightOnTap,
+    super.filter,
+    super.filterCaseSensitive,
+    super.filterMultiLine,
+    super.filterUnicode,
+    super.filterDotAll,
   }) : variant = WxTextVariant.labelMedium;
 
   /// Create a small label text widget
@@ -292,7 +352,12 @@ class WxText extends ConstrainedText {
     super.textHeightBehavior,
     super.highlight,
     super.highlightStyle,
-    super.highlightCaseSensitive,
+    super.highlightOnTap,
+    super.filter,
+    super.filterCaseSensitive,
+    super.filterMultiLine,
+    super.filterUnicode,
+    super.filterDotAll,
   }) : variant = WxTextVariant.labelSmall;
 
   /// Create a large title text widget
@@ -314,7 +379,12 @@ class WxText extends ConstrainedText {
     super.textHeightBehavior,
     super.highlight,
     super.highlightStyle,
-    super.highlightCaseSensitive,
+    super.highlightOnTap,
+    super.filter,
+    super.filterCaseSensitive,
+    super.filterMultiLine,
+    super.filterUnicode,
+    super.filterDotAll,
   }) : variant = WxTextVariant.titleLarge;
 
   /// Create a medium title text widget
@@ -336,7 +406,12 @@ class WxText extends ConstrainedText {
     super.textHeightBehavior,
     super.highlight,
     super.highlightStyle,
-    super.highlightCaseSensitive,
+    super.highlightOnTap,
+    super.filter,
+    super.filterCaseSensitive,
+    super.filterMultiLine,
+    super.filterUnicode,
+    super.filterDotAll,
   }) : variant = WxTextVariant.titleMedium;
 
   /// Create a small title text widget
@@ -358,7 +433,12 @@ class WxText extends ConstrainedText {
     super.textHeightBehavior,
     super.highlight,
     super.highlightStyle,
-    super.highlightCaseSensitive,
+    super.highlightOnTap,
+    super.filter,
+    super.filterCaseSensitive,
+    super.filterMultiLine,
+    super.filterUnicode,
+    super.filterDotAll,
   }) : variant = WxTextVariant.titleSmall;
 
   /// The variant text style to apply.
