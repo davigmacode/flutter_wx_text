@@ -41,8 +41,10 @@ class ParsedText extends Text {
   /// Function triggered when a user taps on highlighted text
   final WxTextFilterTap? highlightOnTap;
 
+  /// List of [WxTextFilter] used to filter and control text appearance
   final List<WxTextFilter> filter;
 
+  /// Determines whether the text filter is disabled or not
   final bool filterDisabled;
 
   /// If [filter] not empty,

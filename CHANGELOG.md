@@ -1,3 +1,9 @@
+## 2.0.0
+
+* Changed parameter `highlightCaseSensitive` with `filterCaseSensitive`
+* Implemented an advanced text parsing widget with pattern highlighting capabilities
+* Added spoiler text
+
 ## 1.0.0
 
 * Inherits all the functionalities of the standard Text widget.

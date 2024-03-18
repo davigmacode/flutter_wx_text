@@ -94,6 +94,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         trimLines: 5,
                         textAlign: TextAlign.justify,
                         overflow: TextOverflow.ellipsis,
+                        filterDisabledOnCollapsed: true,
                         filter: [
                           WxTextFilter.email(onTap: sendMail),
                           WxTextFilter.url(onTap: openURL),

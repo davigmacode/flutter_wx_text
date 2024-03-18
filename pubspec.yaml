@@ -1,11 +1,11 @@
 name: wx_text
 description: A powerful widget that builds upon the familiar Flutter Text widget, offering additional functionalities for a richer text display experience.
-version: 1.0.0
-homepage: https://github.com/davigmacode/wx_text
+version: 2.0.0
+homepage: https://github.com/davigmacode/flutter_wx_text
 
 screenshots:
   - description: "Main Preview"
-    path: media/preview.jpg
+    path: media/preview.gif
 
 environment:
   sdk: '>=3.1.0 <4.0.0'
