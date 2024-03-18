@@ -1,10 +1,27 @@
 /* spell-checker: disable */
 
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:wx_text/wx_text.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 void main() {
   runApp(const MyApp());
+}
+
+Future<void> openURL(String url) async {
+  final Uri uri = Uri.parse(url);
+  if (!await launchUrl(uri)) {
+    throw Exception('Could not launch $uri');
+  }
+}
+
+Future<void> sendMail(String address) async {
+  final Uri uri = Uri.parse('mailto:$address');
+  if (!await launchUrl(uri)) {
+    throw Exception('Could not send mail $uri');
+  }
 }
 
 class MyApp extends StatelessWidget {
@@ -36,71 +53,72 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(
-            maxWidth: 500,
-          ),
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 20,
-              vertical: 20,
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(vertical: 30),
+        child: Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(
+              maxWidth: 400,
             ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                const ColoredBox(
-                  color: Colors.black12,
-                  child: WxText.headlineMedium(
-                    'Text with a minimum of 3 lines',
-                    minLines: 3,
-                  ),
-                ),
-                const SizedBox(height: 20),
-                WxSpoilerText(
-                  'Highlighted text, Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum',
-                  highlight: 'dolor',
-                  trimLines: 4,
-                  textAlign: TextAlign.justify,
-                  overflow: TextOverflow.ellipsis,
-                  variant: WxTextVariant.labelLarge,
-                  builder: (context, text, toggle) {
-                    return InkWell(
-                      splashFactory: NoSplash.splashFactory,
-                      onTap: toggle,
-                      child: text,
-                    );
-                  },
-                ),
-                const SizedBox(height: 20),
-                const WxTextStyler(
-                  variant: WxTextVariant.headlineLarge,
-                  child: Wrap(
-                    spacing: 5,
-                    children: [
-                      WxText('Apply'),
-                      WxText('styles'),
-                      WxText('to multiple'),
-                      WxText('text'),
-                      WxText('widgets'),
+            child: Card(
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: WxTextStyler(
+                  variant: WxTextVariant.bodyLarge,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      ListTile(
+                        title: const WxText.displaySmall('WxText'),
+                        subtitle: const WxText(
+                          'A powerful widget that builds upon the familiar Flutter Text widget',
+                        ),
+                        trailing: Transform.translate(
+                          offset: const Offset(10, 0),
+                          child: Transform.rotate(
+                            angle: -90 * pi / 180,
+                            child: const FlutterLogo(size: 70),
+                          ),
+                        ),
+                        contentPadding: EdgeInsets.zero,
+                      ),
+                      const SizedBox(height: 20),
+                      WxSpoilerText(
+                        'Enhanced text processing with email and URL converted to clickable links, highlighted text, and dynamic text expansion/collapse\n\n'
+                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n\n'
+                        'https://pub.dev/packages/wx_text\n'
+                        'https://pub.dev/publishers/widgetarian.com\n'
+                        'davigmacode@gmail.com\n',
+                        highlight: 'do',
+                        trimLines: 5,
+                        textAlign: TextAlign.justify,
+                        overflow: TextOverflow.ellipsis,
+                        filter: [
+                          WxTextFilter.email(onTap: sendMail),
+                          WxTextFilter.url(onTap: openURL),
+                        ],
+                        builder: (context, text, toggle) {
+                          return InkWell(
+                            splashFactory: NoSplash.splashFactory,
+                            onTap: toggle,
+                            child: text,
+                          );
+                        },
+                      ),
+                      const SizedBox(height: 20),
+                      ColoredBox(
+                        color: Colors.amber.shade100,
+                        child: const WxText.labelLarge(
+                          'Text with a minimum of 3 lines',
+                          minLines: 3,
+                        ),
+                      ),
+                      const SizedBox(height: 20),
                     ],
                   ),
                 ),
-                const SizedBox(height: 20),
-                WxText.bodyLarge(
-                  'Highlighted text, Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut https://github.com/davigmacode/flutter_text labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in my@email.com voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum',
-                  highlight: 'de',
-                  filter: [
-                    WxTextFilter.email(onTap: (_) {}),
-                    WxTextFilter.url(onTap: (_) {}),
-                  ],
-                  // filterDisabled: true,
-                ),
-              ],
+              ),
             ),
           ),
         ),
