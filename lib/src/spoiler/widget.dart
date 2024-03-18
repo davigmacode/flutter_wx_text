@@ -37,6 +37,7 @@ class WxSpoilerText extends WxText {
     super.variant,
     this.expanded = false,
     this.trimLines,
+    this.filterDisabledOnCollapsed = false,
     this.duration = const Duration(milliseconds: 200),
     this.builder = WxSpoilerText.defaultBuilder,
   });
@@ -46,6 +47,9 @@ class WxSpoilerText extends WxText {
 
   /// Maximum lines shown in collapsed view.
   final int? trimLines;
+
+  /// Determines whether to disable all the filter when text collapsed.
+  final bool filterDisabledOnCollapsed;
 
   /// The duration of the whole orchestrated animation.
   final Duration duration;
@@ -81,7 +85,7 @@ class WxSpoilerText extends WxText {
       highlightStyle: highlightStyle,
       highlightOnTap: highlightOnTap,
       filter: filter,
-      filterDisabled: filterDisabled,
+      filterDisabled: filterDisabledOnCollapsed || filterDisabled,
       filterCaseSensitive: caseSensitive,
       filterMultiLine: multiLine,
       filterUnicode: unicode,
