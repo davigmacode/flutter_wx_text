@@ -1,3 +1,7 @@
+## 2.0.2
+
+* Adjust sdk constraints
+
 ## 2.0.1
 
 * Removed screenshots and example to reduces package size
