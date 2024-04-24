@@ -73,14 +73,18 @@ class _MyHomePageState extends State<MyHomePage> {
                         title: const WxText.displayLarge(
                           'WxText',
                           style: TextStyle(
-                            color: Colors.amber,
+                            color: Colors.blue,
                             fontWeight: FontWeight.bold,
                           ),
-                          borderColor: Colors.blue,
+                          borderColor: Colors.amber,
                           borderWidth: 2,
                         ),
                         subtitle: const WxText(
                           'A powerful widget that builds upon the familiar Flutter Text widget',
+                          gradient: LinearGradient(colors: [
+                            Colors.green,
+                            Colors.blue,
+                          ]),
                         ),
                         trailing: Transform.translate(
                           offset: const Offset(10, 0),

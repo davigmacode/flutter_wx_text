@@ -36,6 +36,7 @@ class WxText extends OutlinedText {
     super.filterDotAll,
     super.borderColor,
     super.borderWidth,
+    super.gradient,
     this.variant,
   });
 
@@ -67,6 +68,7 @@ class WxText extends OutlinedText {
     super.filterDotAll,
     super.borderColor,
     super.borderWidth,
+    super.gradient,
   }) : variant = WxTextVariant.displayLarge;
 
   /// Create a medium display text widget
@@ -97,6 +99,7 @@ class WxText extends OutlinedText {
     super.filterDotAll,
     super.borderColor,
     super.borderWidth,
+    super.gradient,
   }) : variant = WxTextVariant.displayMedium;
 
   /// Create a small display text widget
@@ -127,6 +130,7 @@ class WxText extends OutlinedText {
     super.filterDotAll,
     super.borderColor,
     super.borderWidth,
+    super.gradient,
   }) : variant = WxTextVariant.displaySmall;
 
   /// Create a large headline text widget
@@ -157,6 +161,7 @@ class WxText extends OutlinedText {
     super.filterDotAll,
     super.borderColor,
     super.borderWidth,
+    super.gradient,
   }) : variant = WxTextVariant.headlineLarge;
 
   /// Create a medium headline text widget
@@ -187,6 +192,7 @@ class WxText extends OutlinedText {
     super.filterDotAll,
     super.borderColor,
     super.borderWidth,
+    super.gradient,
   }) : variant = WxTextVariant.headlineMedium;
 
   /// Create a small headline text widget
@@ -217,6 +223,7 @@ class WxText extends OutlinedText {
     super.filterDotAll,
     super.borderColor,
     super.borderWidth,
+    super.gradient,
   }) : variant = WxTextVariant.headlineSmall;
 
   /// Create a large body text widget
@@ -247,6 +254,7 @@ class WxText extends OutlinedText {
     super.filterDotAll,
     super.borderColor,
     super.borderWidth,
+    super.gradient,
   }) : variant = WxTextVariant.bodyLarge;
 
   /// Create a medium body text widget
@@ -277,6 +285,7 @@ class WxText extends OutlinedText {
     super.filterDotAll,
     super.borderColor,
     super.borderWidth,
+    super.gradient,
   }) : variant = WxTextVariant.bodyMedium;
 
   /// Create a small body text widget
@@ -307,6 +316,7 @@ class WxText extends OutlinedText {
     super.filterDotAll,
     super.borderColor,
     super.borderWidth,
+    super.gradient,
   }) : variant = WxTextVariant.bodySmall;
 
   /// Create a large label text widget
@@ -337,6 +347,7 @@ class WxText extends OutlinedText {
     super.filterDotAll,
     super.borderColor,
     super.borderWidth,
+    super.gradient,
   }) : variant = WxTextVariant.labelLarge;
 
   /// Create a medium label text widget
@@ -367,6 +378,7 @@ class WxText extends OutlinedText {
     super.filterDotAll,
     super.borderColor,
     super.borderWidth,
+    super.gradient,
   }) : variant = WxTextVariant.labelMedium;
 
   /// Create a small label text widget
@@ -397,6 +409,7 @@ class WxText extends OutlinedText {
     super.filterDotAll,
     super.borderColor,
     super.borderWidth,
+    super.gradient,
   }) : variant = WxTextVariant.labelSmall;
 
   /// Create a large title text widget
@@ -427,6 +440,7 @@ class WxText extends OutlinedText {
     super.filterDotAll,
     super.borderColor,
     super.borderWidth,
+    super.gradient,
   }) : variant = WxTextVariant.titleLarge;
 
   /// Create a medium title text widget
@@ -457,6 +471,7 @@ class WxText extends OutlinedText {
     super.filterDotAll,
     super.borderColor,
     super.borderWidth,
+    super.gradient,
   }) : variant = WxTextVariant.titleMedium;
 
   /// Create a small title text widget
@@ -487,6 +502,7 @@ class WxText extends OutlinedText {
     super.filterDotAll,
     super.borderColor,
     super.borderWidth,
+    super.gradient,
   }) : variant = WxTextVariant.titleSmall;
 
   /// The variant text style to apply.

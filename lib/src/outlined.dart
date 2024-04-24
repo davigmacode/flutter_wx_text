@@ -1,11 +1,11 @@
 import 'package:flutter/widgets.dart';
-import 'constrained.dart';
+import 'gradient.dart';
 
 /// The OutlinedText widget is a custom widget
 /// that allows you to display text with an outline effect.
 /// This can be useful for creating visually distinct text elements
 /// or for enhancing readability on certain backgrounds.
-class OutlinedText extends ConstrainedText {
+class OutlinedText extends GradientText {
   /// Create a outlined text widget
   const OutlinedText(
     super.text, {
@@ -32,6 +32,7 @@ class OutlinedText extends ConstrainedText {
     super.filterMultiLine,
     super.filterUnicode,
     super.filterDotAll,
+    super.gradient,
     this.borderColor = const Color(0xFF000000),
     this.borderWidth = 0,
   });
