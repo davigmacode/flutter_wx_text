@@ -34,6 +34,8 @@ class WxSpoilerText extends WxText {
     super.filterMultiLine,
     super.filterUnicode,
     super.filterDotAll,
+    super.borderColor,
+    super.borderWidth,
     super.variant,
     this.expanded = false,
     this.trimLines,

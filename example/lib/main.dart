@@ -70,7 +70,15 @@ class _MyHomePageState extends State<MyHomePage> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
                       ListTile(
-                        title: const WxText.displaySmall('WxText'),
+                        title: const WxText.displayLarge(
+                          'WxText',
+                          style: TextStyle(
+                            color: Colors.amber,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          borderColor: Colors.blue,
+                          borderWidth: 2,
+                        ),
                         subtitle: const WxText(
                           'A powerful widget that builds upon the familiar Flutter Text widget',
                         ),

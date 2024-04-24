@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'constrained.dart';
+import 'outlined.dart';
 import 'variant.dart';
 import 'styler.dart';
 
@@ -7,7 +7,7 @@ import 'styler.dart';
 /// the familiar Flutter Text widget,
 /// offering additional functionalities
 /// for a richer text display experience.
-class WxText extends ConstrainedText {
+class WxText extends OutlinedText {
   /// Create an extended text widget
   const WxText(
     super.text, {
@@ -34,6 +34,8 @@ class WxText extends ConstrainedText {
     super.filterMultiLine,
     super.filterUnicode,
     super.filterDotAll,
+    super.borderColor,
+    super.borderWidth,
     this.variant,
   });
 
@@ -63,6 +65,8 @@ class WxText extends ConstrainedText {
     super.filterMultiLine,
     super.filterUnicode,
     super.filterDotAll,
+    super.borderColor,
+    super.borderWidth,
   }) : variant = WxTextVariant.displayLarge;
 
   /// Create a medium display text widget
@@ -91,6 +95,8 @@ class WxText extends ConstrainedText {
     super.filterMultiLine,
     super.filterUnicode,
     super.filterDotAll,
+    super.borderColor,
+    super.borderWidth,
   }) : variant = WxTextVariant.displayMedium;
 
   /// Create a small display text widget
@@ -119,6 +125,8 @@ class WxText extends ConstrainedText {
     super.filterMultiLine,
     super.filterUnicode,
     super.filterDotAll,
+    super.borderColor,
+    super.borderWidth,
   }) : variant = WxTextVariant.displaySmall;
 
   /// Create a large headline text widget
@@ -147,6 +155,8 @@ class WxText extends ConstrainedText {
     super.filterMultiLine,
     super.filterUnicode,
     super.filterDotAll,
+    super.borderColor,
+    super.borderWidth,
   }) : variant = WxTextVariant.headlineLarge;
 
   /// Create a medium headline text widget
@@ -175,6 +185,8 @@ class WxText extends ConstrainedText {
     super.filterMultiLine,
     super.filterUnicode,
     super.filterDotAll,
+    super.borderColor,
+    super.borderWidth,
   }) : variant = WxTextVariant.headlineMedium;
 
   /// Create a small headline text widget
@@ -203,6 +215,8 @@ class WxText extends ConstrainedText {
     super.filterMultiLine,
     super.filterUnicode,
     super.filterDotAll,
+    super.borderColor,
+    super.borderWidth,
   }) : variant = WxTextVariant.headlineSmall;
 
   /// Create a large body text widget
@@ -231,6 +245,8 @@ class WxText extends ConstrainedText {
     super.filterMultiLine,
     super.filterUnicode,
     super.filterDotAll,
+    super.borderColor,
+    super.borderWidth,
   }) : variant = WxTextVariant.bodyLarge;
 
   /// Create a medium body text widget
@@ -259,6 +275,8 @@ class WxText extends ConstrainedText {
     super.filterMultiLine,
     super.filterUnicode,
     super.filterDotAll,
+    super.borderColor,
+    super.borderWidth,
   }) : variant = WxTextVariant.bodyMedium;
 
   /// Create a small body text widget
@@ -287,6 +305,8 @@ class WxText extends ConstrainedText {
     super.filterMultiLine,
     super.filterUnicode,
     super.filterDotAll,
+    super.borderColor,
+    super.borderWidth,
   }) : variant = WxTextVariant.bodySmall;
 
   /// Create a large label text widget
@@ -315,6 +335,8 @@ class WxText extends ConstrainedText {
     super.filterMultiLine,
     super.filterUnicode,
     super.filterDotAll,
+    super.borderColor,
+    super.borderWidth,
   }) : variant = WxTextVariant.labelLarge;
 
   /// Create a medium label text widget
@@ -343,6 +365,8 @@ class WxText extends ConstrainedText {
     super.filterMultiLine,
     super.filterUnicode,
     super.filterDotAll,
+    super.borderColor,
+    super.borderWidth,
   }) : variant = WxTextVariant.labelMedium;
 
   /// Create a small label text widget
@@ -371,6 +395,8 @@ class WxText extends ConstrainedText {
     super.filterMultiLine,
     super.filterUnicode,
     super.filterDotAll,
+    super.borderColor,
+    super.borderWidth,
   }) : variant = WxTextVariant.labelSmall;
 
   /// Create a large title text widget
@@ -399,6 +425,8 @@ class WxText extends ConstrainedText {
     super.filterMultiLine,
     super.filterUnicode,
     super.filterDotAll,
+    super.borderColor,
+    super.borderWidth,
   }) : variant = WxTextVariant.titleLarge;
 
   /// Create a medium title text widget
@@ -427,6 +455,8 @@ class WxText extends ConstrainedText {
     super.filterMultiLine,
     super.filterUnicode,
     super.filterDotAll,
+    super.borderColor,
+    super.borderWidth,
   }) : variant = WxTextVariant.titleMedium;
 
   /// Create a small title text widget
@@ -455,6 +485,8 @@ class WxText extends ConstrainedText {
     super.filterMultiLine,
     super.filterUnicode,
     super.filterDotAll,
+    super.borderColor,
+    super.borderWidth,
   }) : variant = WxTextVariant.titleSmall;
 
   /// The variant text style to apply.
