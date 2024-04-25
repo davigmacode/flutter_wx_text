@@ -40,6 +40,41 @@ class WxText extends OutlinedText {
     this.variant,
   });
 
+  /// Create an extended text widget from other instance
+  WxText.from(
+    WxText other, {
+    super.key,
+    String? text,
+  })  : variant = other.variant,
+        super(
+          text ?? other.text,
+          style: other.style,
+          strutStyle: other.strutStyle,
+          textAlign: other.textAlign,
+          textDirection: other.textDirection,
+          textScaler: other.textScaler,
+          locale: other.locale,
+          softWrap: other.softWrap,
+          overflow: other.overflow,
+          maxLines: other.maxLines,
+          minLines: other.minLines,
+          semanticsLabel: other.semanticsLabel,
+          textWidthBasis: other.textWidthBasis,
+          textHeightBehavior: other.textHeightBehavior,
+          highlight: other.highlight,
+          highlightStyle: other.highlightStyle,
+          highlightOnTap: other.highlightOnTap,
+          filter: other.filter,
+          filterDisabled: other.filterDisabled,
+          filterCaseSensitive: other.caseSensitive,
+          filterMultiLine: other.multiLine,
+          filterUnicode: other.unicode,
+          filterDotAll: other.dotAll,
+          borderColor: other.borderColor,
+          borderWidth: other.borderWidth,
+          gradient: other.gradient,
+        );
+
   /// Create a large display text widget
   const WxText.displayLarge(
     super.text, {
