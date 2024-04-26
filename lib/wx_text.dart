@@ -5,3 +5,4 @@ export 'src/variant.dart';
 export 'src/styler.dart';
 export 'src/filter.dart';
 export 'src/spoiler/widget.dart';
+export 'src/animated/widget.dart';
