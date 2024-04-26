@@ -11,7 +11,6 @@ class ConstrainedText extends ParsedText {
   const ConstrainedText(
     super.text, {
     super.key,
-    super.style,
     super.strutStyle,
     super.textAlign,
     super.textDirection,
@@ -50,14 +49,15 @@ class ConstrainedText extends ParsedText {
     Widget result = super.build(context);
 
     if (minLines > 0) {
+      final textStyle = DefaultTextStyle.of(context).style;
       result = Stack(
         children: [
           Text(
             '\n' * (minLines - 1),
-            style: const TextStyle().merge(style).copyWith(
-                  color: _transparentColor,
-                  backgroundColor: _transparentColor,
-                ),
+            style: textStyle.copyWith(
+              color: _transparentColor,
+              backgroundColor: _transparentColor,
+            ),
             strutStyle: strutStyle,
             textAlign: textAlign,
             textDirection: textDirection,

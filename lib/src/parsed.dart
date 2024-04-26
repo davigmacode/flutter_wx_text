@@ -131,10 +131,7 @@ class ParsedText extends Text {
     );
 
     return Text.rich(
-      TextSpan(
-        children: spans,
-        style: style,
-      ),
+      TextSpan(children: spans),
       strutStyle: strutStyle,
       textAlign: textAlign,
       textDirection: textDirection,

@@ -10,7 +10,6 @@ class OutlinedText extends GradientText {
   const OutlinedText(
     super.text, {
     super.key,
-    super.style,
     super.strutStyle,
     super.textAlign,
     super.textDirection,
@@ -48,17 +47,18 @@ class OutlinedText extends GradientText {
     Widget result = super.build(context);
 
     if (borderWidth > 0) {
+      final textStyle = DefaultTextStyle.of(context).style;
       result = Stack(
         children: [
           result,
           Text(
             text,
-            style: const TextStyle().merge(style).copyWith(
-                  foreground: Paint()
-                    ..style = PaintingStyle.stroke
-                    ..strokeWidth = borderWidth
-                    ..color = borderColor,
-                ),
+            style: textStyle.copyWith(
+              foreground: Paint()
+                ..style = PaintingStyle.stroke
+                ..strokeWidth = borderWidth
+                ..color = borderColor,
+            ),
             strutStyle: strutStyle,
             textAlign: textAlign,
             textDirection: textDirection,

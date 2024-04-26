@@ -9,7 +9,6 @@ class GradientText extends ConstrainedText {
   const GradientText(
     super.text, {
     super.key,
-    super.style,
     super.strutStyle,
     super.textAlign,
     super.textDirection,

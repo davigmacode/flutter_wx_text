@@ -12,7 +12,7 @@ class WxText extends OutlinedText {
   const WxText(
     super.text, {
     super.key,
-    super.style,
+    TextStyle? style,
     super.strutStyle,
     super.textAlign,
     super.textDirection,
@@ -38,17 +38,39 @@ class WxText extends OutlinedText {
     super.borderWidth,
     super.gradient,
     this.variant,
-  });
+    this.color,
+    this.backgroundColor,
+    this.shadows,
+    this.fontFamily,
+    this.fontSize,
+    this.fontWeight,
+    this.fontStyle,
+    this.letterSpacing,
+    this.wordSpacing,
+    this.textBaseline,
+    this.height,
+  }) : styleOverridden = style;
 
   /// Create an extended text widget from other instance
   WxText.from(
     WxText other, {
     super.key,
     String? text,
-  })  : variant = other.variant,
+  })  : styleOverridden = other.styleOverridden,
+        variant = other.variant,
+        color = other.color,
+        backgroundColor = other.backgroundColor,
+        shadows = other.shadows,
+        fontFamily = other.fontFamily,
+        fontSize = other.fontSize,
+        fontWeight = other.fontWeight,
+        fontStyle = other.fontStyle,
+        letterSpacing = other.letterSpacing,
+        wordSpacing = other.wordSpacing,
+        textBaseline = other.textBaseline,
+        height = other.height,
         super(
           text ?? other.text,
-          style: other.style,
           strutStyle: other.strutStyle,
           textAlign: other.textAlign,
           textDirection: other.textDirection,
@@ -79,7 +101,7 @@ class WxText extends OutlinedText {
   const WxText.displayLarge(
     super.text, {
     super.key,
-    super.style,
+    TextStyle? style,
     super.strutStyle,
     super.textAlign,
     super.textDirection,
@@ -104,13 +126,25 @@ class WxText extends OutlinedText {
     super.borderColor,
     super.borderWidth,
     super.gradient,
-  }) : variant = WxTextVariant.displayLarge;
+    this.color,
+    this.backgroundColor,
+    this.shadows,
+    this.fontFamily,
+    this.fontSize,
+    this.fontWeight,
+    this.fontStyle,
+    this.letterSpacing,
+    this.wordSpacing,
+    this.textBaseline,
+    this.height,
+  })  : styleOverridden = style,
+        variant = WxTextVariant.displayLarge;
 
   /// Create a medium display text widget
   const WxText.displayMedium(
     super.text, {
     super.key,
-    super.style,
+    TextStyle? style,
     super.strutStyle,
     super.textAlign,
     super.textDirection,
@@ -135,13 +169,25 @@ class WxText extends OutlinedText {
     super.borderColor,
     super.borderWidth,
     super.gradient,
-  }) : variant = WxTextVariant.displayMedium;
+    this.color,
+    this.backgroundColor,
+    this.shadows,
+    this.fontFamily,
+    this.fontSize,
+    this.fontWeight,
+    this.fontStyle,
+    this.letterSpacing,
+    this.wordSpacing,
+    this.textBaseline,
+    this.height,
+  })  : styleOverridden = style,
+        variant = WxTextVariant.displayMedium;
 
   /// Create a small display text widget
   const WxText.displaySmall(
     super.text, {
     super.key,
-    super.style,
+    TextStyle? style,
     super.strutStyle,
     super.textAlign,
     super.textDirection,
@@ -166,13 +212,25 @@ class WxText extends OutlinedText {
     super.borderColor,
     super.borderWidth,
     super.gradient,
-  }) : variant = WxTextVariant.displaySmall;
+    this.color,
+    this.backgroundColor,
+    this.shadows,
+    this.fontFamily,
+    this.fontSize,
+    this.fontWeight,
+    this.fontStyle,
+    this.letterSpacing,
+    this.wordSpacing,
+    this.textBaseline,
+    this.height,
+  })  : styleOverridden = style,
+        variant = WxTextVariant.displaySmall;
 
   /// Create a large headline text widget
   const WxText.headlineLarge(
     super.text, {
     super.key,
-    super.style,
+    TextStyle? style,
     super.strutStyle,
     super.textAlign,
     super.textDirection,
@@ -197,13 +255,25 @@ class WxText extends OutlinedText {
     super.borderColor,
     super.borderWidth,
     super.gradient,
-  }) : variant = WxTextVariant.headlineLarge;
+    this.color,
+    this.backgroundColor,
+    this.shadows,
+    this.fontFamily,
+    this.fontSize,
+    this.fontWeight,
+    this.fontStyle,
+    this.letterSpacing,
+    this.wordSpacing,
+    this.textBaseline,
+    this.height,
+  })  : styleOverridden = style,
+        variant = WxTextVariant.headlineLarge;
 
   /// Create a medium headline text widget
   const WxText.headlineMedium(
     super.text, {
     super.key,
-    super.style,
+    TextStyle? style,
     super.strutStyle,
     super.textAlign,
     super.textDirection,
@@ -228,13 +298,25 @@ class WxText extends OutlinedText {
     super.borderColor,
     super.borderWidth,
     super.gradient,
-  }) : variant = WxTextVariant.headlineMedium;
+    this.color,
+    this.backgroundColor,
+    this.shadows,
+    this.fontFamily,
+    this.fontSize,
+    this.fontWeight,
+    this.fontStyle,
+    this.letterSpacing,
+    this.wordSpacing,
+    this.textBaseline,
+    this.height,
+  })  : styleOverridden = style,
+        variant = WxTextVariant.headlineMedium;
 
   /// Create a small headline text widget
   const WxText.headlineSmall(
     super.text, {
     super.key,
-    super.style,
+    TextStyle? style,
     super.strutStyle,
     super.textAlign,
     super.textDirection,
@@ -259,13 +341,25 @@ class WxText extends OutlinedText {
     super.borderColor,
     super.borderWidth,
     super.gradient,
-  }) : variant = WxTextVariant.headlineSmall;
+    this.color,
+    this.backgroundColor,
+    this.shadows,
+    this.fontFamily,
+    this.fontSize,
+    this.fontWeight,
+    this.fontStyle,
+    this.letterSpacing,
+    this.wordSpacing,
+    this.textBaseline,
+    this.height,
+  })  : styleOverridden = style,
+        variant = WxTextVariant.headlineSmall;
 
   /// Create a large body text widget
   const WxText.bodyLarge(
     super.text, {
     super.key,
-    super.style,
+    TextStyle? style,
     super.strutStyle,
     super.textAlign,
     super.textDirection,
@@ -290,13 +384,25 @@ class WxText extends OutlinedText {
     super.borderColor,
     super.borderWidth,
     super.gradient,
-  }) : variant = WxTextVariant.bodyLarge;
+    this.color,
+    this.backgroundColor,
+    this.shadows,
+    this.fontFamily,
+    this.fontSize,
+    this.fontWeight,
+    this.fontStyle,
+    this.letterSpacing,
+    this.wordSpacing,
+    this.textBaseline,
+    this.height,
+  })  : styleOverridden = style,
+        variant = WxTextVariant.bodyLarge;
 
   /// Create a medium body text widget
   const WxText.bodyMedium(
     super.text, {
     super.key,
-    super.style,
+    TextStyle? style,
     super.strutStyle,
     super.textAlign,
     super.textDirection,
@@ -321,13 +427,25 @@ class WxText extends OutlinedText {
     super.borderColor,
     super.borderWidth,
     super.gradient,
-  }) : variant = WxTextVariant.bodyMedium;
+    this.color,
+    this.backgroundColor,
+    this.shadows,
+    this.fontFamily,
+    this.fontSize,
+    this.fontWeight,
+    this.fontStyle,
+    this.letterSpacing,
+    this.wordSpacing,
+    this.textBaseline,
+    this.height,
+  })  : styleOverridden = style,
+        variant = WxTextVariant.bodyMedium;
 
   /// Create a small body text widget
   const WxText.bodySmall(
     super.text, {
     super.key,
-    super.style,
+    TextStyle? style,
     super.strutStyle,
     super.textAlign,
     super.textDirection,
@@ -352,13 +470,25 @@ class WxText extends OutlinedText {
     super.borderColor,
     super.borderWidth,
     super.gradient,
-  }) : variant = WxTextVariant.bodySmall;
+    this.color,
+    this.backgroundColor,
+    this.shadows,
+    this.fontFamily,
+    this.fontSize,
+    this.fontWeight,
+    this.fontStyle,
+    this.letterSpacing,
+    this.wordSpacing,
+    this.textBaseline,
+    this.height,
+  })  : styleOverridden = style,
+        variant = WxTextVariant.bodySmall;
 
   /// Create a large label text widget
   const WxText.labelLarge(
     super.text, {
     super.key,
-    super.style,
+    TextStyle? style,
     super.strutStyle,
     super.textAlign,
     super.textDirection,
@@ -383,13 +513,25 @@ class WxText extends OutlinedText {
     super.borderColor,
     super.borderWidth,
     super.gradient,
-  }) : variant = WxTextVariant.labelLarge;
+    this.color,
+    this.backgroundColor,
+    this.shadows,
+    this.fontFamily,
+    this.fontSize,
+    this.fontWeight,
+    this.fontStyle,
+    this.letterSpacing,
+    this.wordSpacing,
+    this.textBaseline,
+    this.height,
+  })  : styleOverridden = style,
+        variant = WxTextVariant.labelLarge;
 
   /// Create a medium label text widget
   const WxText.labelMedium(
     super.text, {
     super.key,
-    super.style,
+    TextStyle? style,
     super.strutStyle,
     super.textAlign,
     super.textDirection,
@@ -414,13 +556,25 @@ class WxText extends OutlinedText {
     super.borderColor,
     super.borderWidth,
     super.gradient,
-  }) : variant = WxTextVariant.labelMedium;
+    this.color,
+    this.backgroundColor,
+    this.shadows,
+    this.fontFamily,
+    this.fontSize,
+    this.fontWeight,
+    this.fontStyle,
+    this.letterSpacing,
+    this.wordSpacing,
+    this.textBaseline,
+    this.height,
+  })  : styleOverridden = style,
+        variant = WxTextVariant.labelMedium;
 
   /// Create a small label text widget
   const WxText.labelSmall(
     super.text, {
     super.key,
-    super.style,
+    TextStyle? style,
     super.strutStyle,
     super.textAlign,
     super.textDirection,
@@ -445,13 +599,25 @@ class WxText extends OutlinedText {
     super.borderColor,
     super.borderWidth,
     super.gradient,
-  }) : variant = WxTextVariant.labelSmall;
+    this.color,
+    this.backgroundColor,
+    this.shadows,
+    this.fontFamily,
+    this.fontSize,
+    this.fontWeight,
+    this.fontStyle,
+    this.letterSpacing,
+    this.wordSpacing,
+    this.textBaseline,
+    this.height,
+  })  : styleOverridden = style,
+        variant = WxTextVariant.labelSmall;
 
   /// Create a large title text widget
   const WxText.titleLarge(
     super.text, {
     super.key,
-    super.style,
+    TextStyle? style,
     super.strutStyle,
     super.textAlign,
     super.textDirection,
@@ -476,13 +642,25 @@ class WxText extends OutlinedText {
     super.borderColor,
     super.borderWidth,
     super.gradient,
-  }) : variant = WxTextVariant.titleLarge;
+    this.color,
+    this.backgroundColor,
+    this.shadows,
+    this.fontFamily,
+    this.fontSize,
+    this.fontWeight,
+    this.fontStyle,
+    this.letterSpacing,
+    this.wordSpacing,
+    this.textBaseline,
+    this.height,
+  })  : styleOverridden = style,
+        variant = WxTextVariant.titleLarge;
 
   /// Create a medium title text widget
   const WxText.titleMedium(
     super.text, {
     super.key,
-    super.style,
+    TextStyle? style,
     super.strutStyle,
     super.textAlign,
     super.textDirection,
@@ -507,13 +685,25 @@ class WxText extends OutlinedText {
     super.borderColor,
     super.borderWidth,
     super.gradient,
-  }) : variant = WxTextVariant.titleMedium;
+    this.color,
+    this.backgroundColor,
+    this.shadows,
+    this.fontFamily,
+    this.fontSize,
+    this.fontWeight,
+    this.fontStyle,
+    this.letterSpacing,
+    this.wordSpacing,
+    this.textBaseline,
+    this.height,
+  })  : styleOverridden = style,
+        variant = WxTextVariant.titleMedium;
 
   /// Create a small title text widget
   const WxText.titleSmall(
     super.text, {
     super.key,
-    super.style,
+    TextStyle? style,
     super.strutStyle,
     super.textAlign,
     super.textDirection,
@@ -538,19 +728,89 @@ class WxText extends OutlinedText {
     super.borderColor,
     super.borderWidth,
     super.gradient,
-  }) : variant = WxTextVariant.titleSmall;
+    this.color,
+    this.backgroundColor,
+    this.shadows,
+    this.fontFamily,
+    this.fontSize,
+    this.fontWeight,
+    this.fontStyle,
+    this.letterSpacing,
+    this.wordSpacing,
+    this.textBaseline,
+    this.height,
+  })  : styleOverridden = style,
+        variant = WxTextVariant.titleSmall;
+
+  /// If non-null, the style to use for this text.
+  ///
+  /// If the style's "inherit" property is true, the style will be merged with
+  /// the closest enclosing [DefaultTextStyle]. Otherwise, the style will
+  /// replace the closest enclosing [DefaultTextStyle].
+  final TextStyle? styleOverridden;
 
   /// The variant text style to apply.
   final WxTextVariantBuilder? variant;
 
+  /// Shortcut to [style.color]
+  final Color? color;
+
+  /// Shortcut to [style.backgroundColor]
+  final Color? backgroundColor;
+
+  /// Shortcut to [style.shadows]
+  final List<Shadow>? shadows;
+
+  /// Shortcut to [style.fontFamily]
+  final String? fontFamily;
+
+  /// Shortcut to [style.fontSize]
+  final double? fontSize;
+
+  /// Shortcut to [style.fontWeight]
+  final FontWeight? fontWeight;
+
+  /// Shortcut to [style.fontStyle]
+  final FontStyle? fontStyle;
+
+  /// Shortcut to [style.letterSpacing]
+  final double? letterSpacing;
+
+  /// Shortcut to [style.wordSpacing]
+  final double? wordSpacing;
+
+  /// Shortcut to [style.textBaseline]
+  final TextBaseline? textBaseline;
+
+  /// Shortcut to [style.height]
+  final double? height;
+
+  /// Collected text style from shortcuts
+  TextStyle get styleFromShortcuts => TextStyle(
+        color: color,
+        backgroundColor: backgroundColor,
+        shadows: shadows,
+        fontFamily: fontFamily,
+        fontSize: fontSize,
+        fontWeight: fontWeight,
+        fontStyle: fontStyle,
+        letterSpacing: letterSpacing,
+        wordSpacing: wordSpacing,
+        textBaseline: textBaseline,
+        height: height,
+      );
+
   @override
   Widget build(BuildContext context) {
     return WxTextStyler(
-      style: style,
+      style: styleOverridden,
       variant: variant,
-      child: Builder(builder: (context) {
-        return super.build(context);
-      }),
+      child: WxTextStyler(
+        style: styleFromShortcuts,
+        child: Builder(builder: (context) {
+          return super.build(context);
+        }),
+      ),
     );
   }
 }
