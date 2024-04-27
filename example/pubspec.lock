@@ -104,6 +104,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.0"
+  loop_transition:
+    dependency: transitive
+    description:
+      name: loop_transition
+      sha256: c5e163d3029f7a7f2321a9ee1d388d34588987b15c379553e9a718d5341fd99d
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.0"
   matcher:
     dependency: transitive
     description:
@@ -291,7 +299,7 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "2.0.2"
+    version: "3.0.0"
 sdks:
   dart: ">=3.3.1 <4.0.0"
   flutter: ">=3.19.0"
