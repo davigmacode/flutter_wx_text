@@ -21,7 +21,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  loop_transition: ^2.0.0
+  animated_repeatable: ^1.1.1
 
 dev_dependencies:
   flutter_test:

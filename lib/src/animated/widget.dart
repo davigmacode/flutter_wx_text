@@ -1,149 +1,103 @@
-import 'package:loop_transition/loop_transition.dart';
+import 'package:animated_repeatable/animated_repeatable.dart';
 import 'package:flutter/widgets.dart';
 import '../widget.dart';
 
-/// Used within the WxAnimatedText widget to specify
+/// Used within the [WxAnimatedText] widget to specify
 /// the animation function that controls how the text widget
 /// is transformed during the animation cycle.
-typedef WxAnimatedTextTransition = LoopTransitionBuilder;
+typedef WxAnimatedTextBuilder = AnimatedRepeatableBuilder;
 
-/// This typedef defines a function signature used
-/// within the WxAnimatedText widget. It's essentially a function
-/// that builds the animated widget based on the provided parameters.
-typedef WxAnimatedTextWrapper = LoopTransitionWrapperBuilder;
+/// The [WxAnimatedTextState] class is responsible for managing
+/// the internal logic and animation of the [WxAnimatedText] widget.
+///
+/// The state class also handles methods for controlling
+/// the animation playback (play, pause). The play method optionally
+/// allows resetting the animation progress and cycle count before starting playback.
+typedef WxAnimatedTextState = AnimatedRepeatableState;
 
 /// This class is used to create animated text widgets in Flutter.
-/// It inherits from the WxText class and adds the ability to specify
+/// It inherits from the [WxText] class and adds the ability to specify
 /// an animation function that controls how the text widget
 /// is transformed during the animation cycle.
-class WxAnimatedText extends WxText {
-  /// Create an animated text widget
-  const WxAnimatedText(
-    super.text, {
+class WxAnimatedText extends AnimatedRepeatable {
+  /// Creates an animated text widget.
+  ///
+  /// This constructor allows you to specify the following properties:
+  ///
+  /// [repeat]: The number of times to repeat the animation loop. Defaults to `-1` (infinite).
+  ///
+  /// [pause]: Whether to start the animation. Defaults to `false`.
+  ///
+  /// [continuity]: Controls whether the animation should maintain continuity when paused.
+  ///
+  /// [mirror]: Whether the animation should play forward, then backward in a mirroring effect.
+  /// Defaults to false.
+  ///
+  /// [reverse]: Whether the animation plays backward initially. Defaults to `false`.
+  ///
+  /// [transition]: The [WxAnimatedTextBuilder] function that defines the animation behavior.
+  /// Defaults to [WxAnimatedText.fade].
+  ///
+  /// [curve]: The animation curve that controls the easing of the animation.
+  /// Defaults to `Curves.linear`.
+  ///
+  /// [delay]: The delay before the animation starts. Defaults to `Duration.zero`.
+  ///
+  /// [duration]: The duration of the animation. Defaults to `Duration(milliseconds: 200)`.
+  ///
+  /// [reverseTransition]: Defines the type of animation applied to the child widget
+  /// for the backward direction (only applicable if [mirror] is `true`). Defaults to [transition] value.
+  ///
+  /// [reverseCurve]: The curve to use in the reverse direction.
+  /// (only applicable if [mirror] is `true`). Defaults to [curve] value.
+  ///
+  /// [reverseDelay]: The delay before the backward animation starts. Defaults to [delay] value.
+  ///
+  /// [reverseDuration]: The duration of the backward animation. Defaults to [duration] value.
+  ///
+  /// [onStart]: A callback function called only once at the very beginning when the animation starts playing.
+  ///
+  /// [onPause]: A callback function called whenever the animation is paused.
+  ///
+  /// [onContinue]: A callback function called whenever the animation is resumed after being paused.
+  ///
+  /// [onCycle]: A callback function called every time the animation completes
+  /// a single loop iteration (forward and potentially backward if reverse is true).
+  ///
+  /// [onComplete]: A callback function called only once when all loops
+  /// have finished playing (if repeat is not set to `-1` for infinite loops).
+  ///
+  /// [wrapper]: control how the child widget is transformed based on
+  /// the animation's progress and current state.
+  ///
+  /// [child]: The text widget that will be animated during the transition.
+  /// This is a required parameter.
+  const WxAnimatedText({
     super.key,
-    super.style,
-    super.strutStyle,
-    super.textAlign,
-    super.textDirection,
-    super.textScaler,
-    super.locale,
-    super.softWrap,
-    super.overflow,
-    super.maxLines,
-    super.minLines,
-    super.semanticsLabel,
-    super.textWidthBasis,
-    super.textHeightBehavior,
-    super.highlight,
-    super.highlightStyle,
-    super.highlightOnTap,
-    super.filter,
-    super.filterDisabled,
-    super.filterCaseSensitive,
-    super.filterMultiLine,
-    super.filterUnicode,
-    super.filterDotAll,
-    super.borderColor,
-    super.borderWidth,
-    super.gradient,
-    super.variant,
-    this.repeat = -1,
-    this.pause = false,
-    this.mirror = false,
-    this.reverse = false,
-    this.transition = WxAnimatedText.fade,
-    this.curve = Curves.linear,
-    this.delay = Duration.zero,
-    this.duration = const Duration(milliseconds: 200),
-    this.backwardDelay,
-    this.backwardDuration,
-    this.wrapper,
-    this.onStart,
-    this.onPause,
-    this.onContinue,
-    this.onCycle,
-    this.onComplete,
-  });
-
-  /// Controls how many times the entire animation loop
-  /// (forward and potentially backward if [mirror] is `true`) will be played.
-  /// Regardless of the [repeat] value, the animation will always play through
-  /// one complete cycle (forward and potentially backward) before considering the [repeat] condition.
-  ///
-  /// Here's how repeat actually works:
-  /// * `repeat = -1` (default): Plays the animation indefinitely (loops forever).
-  /// * `repeat = 0`: Plays the animation one time only (one cycle).
-  /// * `repeat = 1`: Plays the animation twice (one complete loop, then repeats the entire loop again).
-  /// * `repeat > 1`: Plays the animation for the specified number of loops in addition to the initial cycle. For example, repeat = 3 plays the animation four times in total (one initial cycle + three repeats).
-  ///
-  /// In essence, the repeat property doesn't affect whether the animation plays one cycle initially. It controls how many times the entire loop repeats after the first cycle.
-  final int repeat;
-
-  /// When set to `true`, the animation playback is paused.
-  /// When set to `false` (default), the animation plays normally
-  /// according to the defined loop count [repeat].
-  final bool pause;
-
-  /// Defines whether the animation should play forward, then backward in a mirroring effect.
-  final bool mirror;
-
-  /// When set to `true`, the animation plays backward initially.
-  final bool reverse;
-
-  /// Defines the type of animation applied to the child widget.
-  /// By default, it uses a fade transition (LoopTransition.fade).
-  /// You can potentially provide your own custom transition function here.
-  final WxAnimatedTextTransition transition;
-
-  /// The [curve] of the animation. By default it's [Curves.linear].
-  final Curve curve;
-
-  /// The delay before the animation starts.
-  final Duration delay;
-
-  /// The [duration] of the animation.
-  final Duration duration;
-
-  /// The delay before the animation starts playing in the backward direction
-  /// (only applicable if [mirror] is true). This allows for a slight pause between
-  /// the forward and backward animations in the mirroring effect.
-  ///
-  /// Defaults to `null`, which means the backward animation will use
-  /// the same delay as the forward animation specified by the [delay] property.
-  final Duration? backwardDelay;
-
-  /// An optional duration that can be specified for the backward animation
-  /// (only applicable if [mirror] is true), allowing for a different duration
-  /// compared to the forward animation, creating an asymmetrical mirroring effect.
-  ///
-  /// Defaults to `null`, which means the backward animation will use the same duration
-  /// as the forward animation specified by the duration property.
-  final Duration? backwardDuration;
-
-  /// Called only once at the very beginning when
-  /// the animation starts playing for the first time.
-  final VoidCallback? onStart;
-
-  /// Called when the animation is paused.
-  final VoidCallback? onPause;
-
-  /// Called when the animation is resumed after being paused.
-  final VoidCallback? onContinue;
-
-  /// Called when a complete loop iteration finishes.
-  final ValueSetter<int>? onCycle;
-
-  /// Called when all specified loops have finished playing
-  /// (if repeat is not set to -1 for infinite loops).
-  final VoidCallback? onComplete;
-
-  /// It allows you to control how the child widget
-  /// is transformed based on the animation's progress
-  /// and current state (LoopAnimationStatus).
-  final WxAnimatedTextWrapper? wrapper;
+    super.repeat,
+    super.pause,
+    super.continuity,
+    super.mirror,
+    super.reverse,
+    super.transition,
+    super.curve,
+    super.delay,
+    super.duration,
+    super.reverseTransition,
+    super.reverseCurve,
+    super.reverseDelay,
+    super.reverseDuration,
+    super.wrapper,
+    super.onStart,
+    super.onPause,
+    super.onContinue,
+    super.onCycle,
+    super.onComplete,
+    required Text child,
+  }) : super(child: child);
 
   /// Provides a convenient way to create basic sliding animations
-  /// for your text widget within the `WxAnimatedText` widget.
+  /// for your text widget within the [WxAnimatedText] widget.
   /// Control the direction and distance of the slide using the [to] and [from] offsets.
   ///
   /// **[to]** (required, Offset) : Defines the ending position of
@@ -155,7 +109,12 @@ class WxAnimatedText extends WxText {
   /// Defines the starting position of the slide animation relative to
   /// the text widget's original location. Defaults to Offset.zero,
   /// which means the animation starts with the text widget in its original position.
-  static const slide = LoopTransition.slide;
+  static AnimatedRepeatableBuilder slide(
+    Offset to, [
+    Offset from = Offset.zero,
+  ]) {
+    return AnimatedRepeatable.slide(to, from);
+  }
 
   /// Creates a transition builder that produces a zooming effect on the text widget.
   ///
@@ -166,7 +125,12 @@ class WxAnimatedText extends WxText {
   /// **[to]** (optional, double) : Defines the ending scale of the text widget
   /// during the animation cycle. Defaults to 1.0, which means the text widget ends up
   /// at its original size.
-  static const zoom = LoopTransition.zoom;
+  static AnimatedRepeatableBuilder zoom([
+    double from = 0,
+    double to = 1,
+  ]) {
+    return AnimatedRepeatable.zoom(from, to);
+  }
 
   /// Creates a transition builder specifically
   /// designed for creating a shimmering effect.
@@ -196,7 +160,25 @@ class WxAnimatedText extends WxText {
   /// **[blendMode]** (optional, BlendMode) : Determines how the shimmer gradient
   /// is blended with the child widget. Defaults to BlendMode.srcATop,
   /// which places the source color over the destination color.
-  static const shimmer = LoopTransition.shimmer;
+  static WxAnimatedTextBuilder shimmer({
+    required List<Color> colors,
+    List<double>? stops,
+    AlignmentGeometry begin = Alignment.topLeft,
+    AlignmentGeometry end = Alignment.centerRight,
+    TileMode tileMode = TileMode.clamp,
+    AxisDirection direction = AxisDirection.right,
+    BlendMode blendMode = BlendMode.srcATop,
+  }) {
+    return AnimatedRepeatable.shimmer(
+      colors: colors,
+      stops: stops,
+      begin: begin,
+      end: end,
+      tileMode: tileMode,
+      direction: direction,
+      blendMode: blendMode,
+    );
+  }
 
   /// Creates a transition builder for that animates text
   /// by shaking it horizontally or vertically.
@@ -209,76 +191,54 @@ class WxAnimatedText extends WxText {
   /// the maximum offset of the shaking movement. Defaults to `3.0`,
   /// which creates a moderate shaking effect. Higher values will
   /// result in more pronounced shaking.
-  static const shake = LoopTransition.shake;
+  static AnimatedRepeatableBuilder shake({
+    Axis direction = Axis.horizontal,
+    double distance = 5,
+  }) {
+    return AnimatedRepeatable.shake(
+      direction: direction,
+      distance: distance,
+    );
+  }
 
   /// Animates text by shake them along the horizontal axis.
-  static const shakeX = LoopTransition.shakeX;
+  static const shakeX = AnimatedRepeatable.shakeX;
 
   /// Animates text by shake them along the vertical axis.
-  static const shakeY = LoopTransition.shakeY;
+  static const shakeY = AnimatedRepeatable.shakeY;
 
   /// Creates a smooth fading effect on the text widget during the animation cycle.
-  static const fade = LoopTransition.fade;
+  static const fade = AnimatedRepeatable.fade;
 
   /// This function is used to create a typing animation
   /// for text widgets in the WxAnimatedText class.
   /// It simulates the effect of text being typed on screen one character at a time.
-  static WxAnimatedTextTransition typing({
+  static WxAnimatedTextBuilder typing({
     String? trails,
     Duration trailsBlinking = const Duration(milliseconds: 500),
   }) {
-    return (Widget child, Animation<double> animation) {
-      return Builder(
-        builder: (context) {
-          final config =
-              context.findAncestorWidgetOfExactType<WxAnimatedText>()!;
-          final value = animation.value.clamp(0, 1);
-          final chars = config.data!.characters;
-          final count = (value * chars.length).round();
-          final text = chars.take(count).toString();
+    return (child, final state) {
+      final config = child as WxText;
+      final value = state.animation.value.clamp(0, 1);
+      final chars = config.data!.characters;
+      final count = (value * chars.length).round();
+      final text = chars.take(count).toString();
 
-          final trailing = (trails ?? '').trim();
-          if (trailing.isNotEmpty) {
-            final loop =
-                context.findAncestorStateOfType<LoopTransitionState>()!;
-            if (loop.isCompleted) {
-              return LoopTransition(
-                duration: trailsBlinking,
-                transition: (widget, animation) {
-                  final blinking = animation.value > .5 ? trailing : '';
-                  return WxText.from(config, text: text + blinking);
-                },
-                child: const SizedBox(),
-              );
-            }
-          }
+      final trailing = (trails ?? '').trim();
+      if (trailing.isNotEmpty) {
+        if (state.isCompleted) {
+          return AnimatedRepeatable(
+            duration: trailsBlinking,
+            transition: (widget, state) {
+              final blinking = state.animation.value > .5 ? trailing : '';
+              return WxText.from(config, text: text + blinking);
+            },
+            child: const SizedBox(),
+          );
+        }
+      }
 
-          return WxText.from(config, text: text + trailing);
-        },
-      );
+      return WxText.from(config, text: text + trailing);
     };
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return LoopTransition(
-      repeat: repeat,
-      pause: pause,
-      mirror: mirror,
-      reverse: reverse,
-      transition: transition,
-      curve: curve,
-      delay: delay,
-      duration: duration,
-      backwardDelay: backwardDelay,
-      backwardDuration: backwardDuration,
-      onStart: onStart,
-      onPause: onPause,
-      onContinue: onContinue,
-      onCycle: onCycle,
-      onComplete: onComplete,
-      wrapper: wrapper,
-      child: super.build(context),
-    );
   }
 }
