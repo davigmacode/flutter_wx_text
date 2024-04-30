@@ -58,6 +58,7 @@ class OutlinedText extends GradientText {
                 ..style = PaintingStyle.stroke
                 ..strokeWidth = borderWidth
                 ..color = borderColor,
+              shadows: [],
             ),
             strutStyle: strutStyle,
             textAlign: textAlign,
