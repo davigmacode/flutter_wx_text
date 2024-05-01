@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'gradient.dart';
+import 'outlined_position.dart';
 
 /// The OutlinedText widget is a custom widget
 /// that allows you to display text with an outline effect.
@@ -33,46 +34,61 @@ class OutlinedText extends GradientText {
     super.filterUnicode,
     super.filterDotAll,
     super.gradient,
-    this.borderColor = const Color(0xFF000000),
-    this.borderWidth = 0,
+    this.outlineColor = const Color(0xFF000000),
+    this.outlineWidth = 0,
+    this.outlineOffset = Offset.zero,
+    this.outlinePosition = WxTextOutlinePosition.foreground,
   });
 
-  /// The color of the border.
-  final Color borderColor;
+  /// The color of the text outline.
+  final Color outlineColor;
 
-  /// The width of the border, in logical pixels.
-  final double borderWidth;
+  /// The width of the text outline, in logical pixels.
+  final double outlineWidth;
+
+  /// Controls the distance between the text content and its outline in a widget.
+  /// It accepts an Offset object, which represents a two-dimensional displacement
+  /// in terms of horizontal (dx) and vertical (dy) distances.
+  final Offset outlineOffset;
+
+  /// Specifies the position of an outline drawn around the text content.
+  final WxTextOutlinePosition outlinePosition;
 
   @override
   Widget build(BuildContext context) {
     Widget result = super.build(context);
 
-    if (borderWidth > 0) {
+    if (outlineWidth > 0) {
       final textStyle = DefaultTextStyle.of(context).style;
+      final textOutline = Transform.translate(
+        offset: outlineOffset,
+        child: Text(
+          text,
+          style: textStyle.copyWith(
+            foreground: Paint()
+              ..style = PaintingStyle.stroke
+              ..strokeWidth = outlineWidth
+              ..color = outlineColor,
+            shadows: [],
+          ),
+          strutStyle: strutStyle,
+          textAlign: textAlign,
+          textDirection: textDirection,
+          textScaler: textScaler,
+          locale: locale,
+          softWrap: softWrap,
+          overflow: overflow,
+          maxLines: maxLines,
+          semanticsLabel: semanticsLabel,
+          textWidthBasis: textWidthBasis,
+          textHeightBehavior: textHeightBehavior,
+        ),
+      );
       result = Stack(
         children: [
+          if (outlinePosition.isBackground) textOutline,
           result,
-          Text(
-            text,
-            style: textStyle.copyWith(
-              foreground: Paint()
-                ..style = PaintingStyle.stroke
-                ..strokeWidth = borderWidth
-                ..color = borderColor,
-              shadows: [],
-            ),
-            strutStyle: strutStyle,
-            textAlign: textAlign,
-            textDirection: textDirection,
-            textScaler: textScaler,
-            locale: locale,
-            softWrap: softWrap,
-            overflow: overflow,
-            maxLines: maxLines,
-            semanticsLabel: semanticsLabel,
-            textWidthBasis: textWidthBasis,
-            textHeightBehavior: textHeightBehavior,
-          ),
+          if (outlinePosition.isForeground) textOutline,
         ],
       );
     }
