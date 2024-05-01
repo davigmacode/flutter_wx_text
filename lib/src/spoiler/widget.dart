@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 import '../widget.dart';
 import 'controller.dart';
 
+/// Function signature for building a custom spoiler widget.
 typedef WxSpoilerBuilder = Widget Function(
   BuildContext context,
   Widget text,
@@ -22,9 +23,11 @@ class WxSpoilerText extends WxText {
     super.locale,
     super.softWrap,
     super.overflow,
+    super.maxLines,
     super.semanticsLabel,
     super.textWidthBasis,
     super.textHeightBehavior,
+    super.selectionColor,
     super.highlight,
     super.highlightStyle,
     super.highlightOnTap,
@@ -52,17 +55,13 @@ class WxSpoilerText extends WxText {
     super.textBaseline,
     super.height,
     this.expanded = false,
-    this.trimLines,
     this.filterDisabledOnCollapsed = false,
     this.duration = const Duration(milliseconds: 200),
-    this.builder = WxSpoilerText.defaultBuilder,
+    this.wrapper = WxSpoilerText.defaultWrapper,
   });
 
   /// Determines initial text visibility (expanded or collapsed).
   final bool expanded;
-
-  /// Maximum lines shown in collapsed view.
-  final int? trimLines;
 
   /// Determines whether to disable all the filter when text collapsed.
   final bool filterDisabledOnCollapsed;
@@ -71,67 +70,39 @@ class WxSpoilerText extends WxText {
   final Duration duration;
 
   /// Callback that builds the final widget
-  final WxSpoilerBuilder builder;
+  final WxSpoilerBuilder wrapper;
 
   /// Default builder that uses GestureDetector to enable tapping on the wrapped content
-  static const defaultBuilder = _defaultBuilder;
-  static Widget _defaultBuilder(context, text, toggle) {
-    return GestureDetector(
-      onTap: toggle,
-      child: text,
+  static const defaultWrapper = _defaultWrapper;
+  static Widget _defaultWrapper(context, text, toggle) {
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      child: GestureDetector(
+        onTap: toggle,
+        child: text,
+      ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    final collapsedText = WxText(
-      text,
-      style: style,
-      strutStyle: strutStyle,
-      textAlign: textAlign,
-      textDirection: textDirection,
-      textScaler: textScaler,
-      locale: locale,
-      softWrap: softWrap,
-      overflow: overflow,
-      semanticsLabel: semanticsLabel,
-      textWidthBasis: textWidthBasis,
-      textHeightBehavior: textHeightBehavior,
-      highlight: highlight,
-      highlightStyle: highlightStyle,
-      highlightOnTap: highlightOnTap,
-      filter: filter,
+    // if maxLines null, returns normal text
+    if (maxLines == null) return super.build(context);
+
+    // build collapsed widget from this widget with optional disabled filter
+    final collapsedText = WxText.from(
+      this,
+      overflow: overflow ?? TextOverflow.ellipsis,
       filterDisabled: filterDisabledOnCollapsed || filterDisabled,
-      filterCaseSensitive: caseSensitive,
-      filterMultiLine: multiLine,
-      filterUnicode: unicode,
-      filterDotAll: dotAll,
-      variant: variant,
-      maxLines: trimLines,
     );
-    final expandedWidget = WxText(
-      text,
-      style: style,
-      strutStyle: strutStyle,
-      textAlign: textAlign,
-      textDirection: textDirection,
-      textScaler: textScaler,
-      locale: locale,
-      softWrap: softWrap,
-      semanticsLabel: semanticsLabel,
-      textWidthBasis: textWidthBasis,
-      textHeightBehavior: textHeightBehavior,
-      highlight: highlight,
-      highlightStyle: highlightStyle,
-      highlightOnTap: highlightOnTap,
-      filter: filter,
-      filterDisabled: filterDisabled,
-      filterCaseSensitive: caseSensitive,
-      filterMultiLine: multiLine,
-      filterUnicode: unicode,
-      filterDotAll: dotAll,
-      variant: variant,
+
+    // build expanded text from this widget with disabled maxLines and visible overflow
+    final expandedText = WxText.from(
+      this,
+      maxLines: -1,
+      overflow: TextOverflow.visible,
     );
+
     return WxSpoilerProvider(
       controller: WxSpoilerController(
         expanded: expanded,
@@ -144,9 +115,9 @@ class WxSpoilerText extends WxText {
               ? CrossFadeState.showSecond
               : CrossFadeState.showFirst,
           firstChild: collapsedText,
-          secondChild: expandedWidget,
+          secondChild: expandedText,
         );
-        return builder(context, child, state.toggle);
+        return wrapper(context, child, state.toggle);
       }),
     );
   }
