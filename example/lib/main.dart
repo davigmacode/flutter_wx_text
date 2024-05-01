@@ -1,7 +1,5 @@
 /* spell-checker: disable */
 
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:wx_text/wx_text.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -58,11 +56,11 @@ class _MyHomePageState extends State<MyHomePage> {
           title: const WxText.displayLarge(
             'WxText',
             fontWeight: FontWeight.bold,
-            borderColor: Colors.white,
-            borderWidth: 1,
+            outlineColor: Colors.white,
+            outlineWidth: 1.5,
             shadows: [
               Shadow(
-                color: Colors.red,
+                color: Colors.green,
                 blurRadius: 3,
               ),
             ],
@@ -89,13 +87,6 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             child: const WxText.bodyLarge(
               'A powerful widget that builds upon the familiar Flutter Text widget',
-            ),
-          ),
-          trailing: Transform.translate(
-            offset: const Offset(10, 0),
-            child: Transform.rotate(
-              angle: -90 * pi / 180,
-              child: const FlutterLogo(size: 70),
             ),
           ),
           contentPadding: EdgeInsets.zero,
@@ -151,9 +142,9 @@ class _MyHomePageState extends State<MyHomePage> {
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
             color: Colors.white,
             fontWeight: FontWeight.bold,
-            borderColor: Colors.black87,
+            outlineColor: Colors.black87,
+            outlineWidth: 1.5,
             letterSpacing: 1.1,
-            borderWidth: 1.5,
           ),
         ),
         const SizedBox(height: 20),
@@ -199,15 +190,14 @@ class _MyHomePageState extends State<MyHomePage> {
             'https://pub.dev/publishers/widgetarian.com\n'
             'davigmacode@gmail.com',
             highlight: 'do',
-            trimLines: 5,
+            maxLines: 5,
             textAlign: TextAlign.justify,
-            overflow: TextOverflow.ellipsis,
             filterDisabledOnCollapsed: true,
             filter: [
               WxTextFilter.email(onTap: sendMail),
               WxTextFilter.url(onTap: openURL),
             ],
-            builder: (context, text, toggle) {
+            wrapper: (context, text, toggle) {
               return InkWell(
                 splashFactory: NoSplash.splashFactory,
                 onTap: toggle,
