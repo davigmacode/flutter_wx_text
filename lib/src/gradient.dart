@@ -18,6 +18,7 @@ class GradientText extends ConstrainedText {
     super.overflow,
     super.maxLines,
     super.minLines,
+    super.minLinesDebugColor,
     super.semanticsLabel,
     super.textWidthBasis,
     super.textHeightBehavior,

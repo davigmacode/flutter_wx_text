@@ -19,6 +19,7 @@ class OutlinedText extends GradientText {
     super.overflow,
     super.maxLines,
     super.minLines,
+    super.minLinesDebugColor,
     super.semanticsLabel,
     super.textWidthBasis,
     super.textHeightBehavior,

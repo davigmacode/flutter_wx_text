@@ -20,6 +20,7 @@ class ConstrainedText extends ParsedText {
     super.overflow,
     super.maxLines,
     this.minLines = 0,
+    this.minLinesDebugColor,
     super.semanticsLabel,
     super.textWidthBasis,
     super.textHeightBehavior,
@@ -43,6 +44,12 @@ class ConstrainedText extends ParsedText {
   /// the widget will always display,
   /// regardless of the actual text content.
   final int minLines;
+
+  /// This property defines the background color used to highlight
+  /// the area where the minimum number of lines of text will be displayed.
+  /// It's helpful for visually debugging layouts that rely on
+  /// a specific number of text lines being shown.
+  final Color? minLinesDebugColor;
 
   @override
   Widget build(BuildContext context) {
@@ -73,6 +80,13 @@ class ConstrainedText extends ParsedText {
           result,
         ],
       );
+
+      if (minLinesDebugColor != null) {
+        result = ColoredBox(
+          color: minLinesDebugColor!,
+          child: result,
+        );
+      }
     }
 
     return result;
