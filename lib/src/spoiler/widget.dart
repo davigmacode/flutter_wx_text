@@ -37,7 +37,7 @@ class WxSpoilerText extends WxText {
     super.outlineColor,
     super.outlineWidth,
     super.outlineOffset,
-    super.outlinePosition,
+    super.outlineBehind,
     super.gradient,
     super.variant,
     super.color,

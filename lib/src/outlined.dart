@@ -1,6 +1,5 @@
 import 'package:flutter/widgets.dart';
 import 'gradient.dart';
-import 'outlined_position.dart';
 
 /// The OutlinedText widget is a custom widget
 /// that allows you to display text with an outline effect.
@@ -37,7 +36,7 @@ class OutlinedText extends GradientText {
     this.outlineColor = const Color(0xFF000000),
     this.outlineWidth = 0,
     this.outlineOffset = Offset.zero,
-    this.outlinePosition = WxTextOutlinePosition.foreground,
+    this.outlineBehind = false,
   });
 
   /// The color of the text outline.
@@ -51,8 +50,8 @@ class OutlinedText extends GradientText {
   /// in terms of horizontal (dx) and vertical (dy) distances.
   final Offset outlineOffset;
 
-  /// Specifies the position of an outline drawn around the text content.
-  final WxTextOutlinePosition outlinePosition;
+  /// Whether the outline position is behind the text.
+  final bool outlineBehind;
 
   @override
   Widget build(BuildContext context) {
@@ -86,9 +85,9 @@ class OutlinedText extends GradientText {
       );
       result = Stack(
         children: [
-          if (outlinePosition.isBackground) textOutline,
+          if (outlineBehind == true) textOutline,
           result,
-          if (outlinePosition.isForeground) textOutline,
+          if (outlineBehind == false) textOutline,
         ],
       );
     }
