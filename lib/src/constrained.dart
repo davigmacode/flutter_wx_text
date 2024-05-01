@@ -24,6 +24,7 @@ class ConstrainedText extends ParsedText {
     super.semanticsLabel,
     super.textWidthBasis,
     super.textHeightBehavior,
+    super.selectionColor,
     super.highlight,
     super.highlightStyle,
     super.highlightOnTap,

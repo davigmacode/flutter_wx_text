@@ -23,6 +23,7 @@ class OutlinedText extends GradientText {
     super.semanticsLabel,
     super.textWidthBasis,
     super.textHeightBehavior,
+    super.selectionColor,
     super.highlight,
     super.highlightStyle,
     super.highlightOnTap,

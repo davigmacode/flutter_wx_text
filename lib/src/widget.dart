@@ -26,6 +26,7 @@ class WxText extends OutlinedText {
     super.semanticsLabel,
     super.textWidthBasis,
     super.textHeightBehavior,
+    super.selectionColor,
     super.highlight,
     super.highlightStyle,
     super.highlightOnTap,
@@ -87,6 +88,7 @@ class WxText extends OutlinedText {
           semanticsLabel: other.semanticsLabel,
           textWidthBasis: other.textWidthBasis,
           textHeightBehavior: other.textHeightBehavior,
+          selectionColor: other.selectionColor,
           highlight: other.highlight,
           highlightStyle: other.highlightStyle,
           highlightOnTap: other.highlightOnTap,
@@ -121,6 +123,7 @@ class WxText extends OutlinedText {
     super.semanticsLabel,
     super.textWidthBasis,
     super.textHeightBehavior,
+    super.selectionColor,
     super.highlight,
     super.highlightStyle,
     super.highlightOnTap,
@@ -167,6 +170,7 @@ class WxText extends OutlinedText {
     super.semanticsLabel,
     super.textWidthBasis,
     super.textHeightBehavior,
+    super.selectionColor,
     super.highlight,
     super.highlightStyle,
     super.highlightOnTap,
@@ -213,6 +217,7 @@ class WxText extends OutlinedText {
     super.semanticsLabel,
     super.textWidthBasis,
     super.textHeightBehavior,
+    super.selectionColor,
     super.highlight,
     super.highlightStyle,
     super.highlightOnTap,
@@ -259,6 +264,7 @@ class WxText extends OutlinedText {
     super.semanticsLabel,
     super.textWidthBasis,
     super.textHeightBehavior,
+    super.selectionColor,
     super.highlight,
     super.highlightStyle,
     super.highlightOnTap,
@@ -305,6 +311,7 @@ class WxText extends OutlinedText {
     super.semanticsLabel,
     super.textWidthBasis,
     super.textHeightBehavior,
+    super.selectionColor,
     super.highlight,
     super.highlightStyle,
     super.highlightOnTap,
@@ -351,6 +358,7 @@ class WxText extends OutlinedText {
     super.semanticsLabel,
     super.textWidthBasis,
     super.textHeightBehavior,
+    super.selectionColor,
     super.highlight,
     super.highlightStyle,
     super.highlightOnTap,
@@ -397,6 +405,7 @@ class WxText extends OutlinedText {
     super.semanticsLabel,
     super.textWidthBasis,
     super.textHeightBehavior,
+    super.selectionColor,
     super.highlight,
     super.highlightStyle,
     super.highlightOnTap,
@@ -443,6 +452,7 @@ class WxText extends OutlinedText {
     super.semanticsLabel,
     super.textWidthBasis,
     super.textHeightBehavior,
+    super.selectionColor,
     super.highlight,
     super.highlightStyle,
     super.highlightOnTap,
@@ -489,6 +499,7 @@ class WxText extends OutlinedText {
     super.semanticsLabel,
     super.textWidthBasis,
     super.textHeightBehavior,
+    super.selectionColor,
     super.highlight,
     super.highlightStyle,
     super.highlightOnTap,
@@ -535,6 +546,7 @@ class WxText extends OutlinedText {
     super.semanticsLabel,
     super.textWidthBasis,
     super.textHeightBehavior,
+    super.selectionColor,
     super.highlight,
     super.highlightStyle,
     super.highlightOnTap,
@@ -581,6 +593,7 @@ class WxText extends OutlinedText {
     super.semanticsLabel,
     super.textWidthBasis,
     super.textHeightBehavior,
+    super.selectionColor,
     super.highlight,
     super.highlightStyle,
     super.highlightOnTap,
@@ -627,6 +640,7 @@ class WxText extends OutlinedText {
     super.semanticsLabel,
     super.textWidthBasis,
     super.textHeightBehavior,
+    super.selectionColor,
     super.highlight,
     super.highlightStyle,
     super.highlightOnTap,
@@ -673,6 +687,7 @@ class WxText extends OutlinedText {
     super.semanticsLabel,
     super.textWidthBasis,
     super.textHeightBehavior,
+    super.selectionColor,
     super.highlight,
     super.highlightStyle,
     super.highlightOnTap,
@@ -719,6 +734,7 @@ class WxText extends OutlinedText {
     super.semanticsLabel,
     super.textWidthBasis,
     super.textHeightBehavior,
+    super.selectionColor,
     super.highlight,
     super.highlightStyle,
     super.highlightOnTap,
@@ -765,6 +781,7 @@ class WxText extends OutlinedText {
     super.semanticsLabel,
     super.textWidthBasis,
     super.textHeightBehavior,
+    super.selectionColor,
     super.highlight,
     super.highlightStyle,
     super.highlightOnTap,
@@ -792,13 +809,6 @@ class WxText extends OutlinedText {
     this.height,
   })  : styleOverridden = style,
         variant = WxTextVariant.titleSmall;
-
-  /// If non-null, the style to use for this text.
-  ///
-  /// If the style's "inherit" property is true, the style will be merged with
-  /// the closest enclosing [DefaultTextStyle]. Otherwise, the style will
-  /// replace the closest enclosing [DefaultTextStyle].
-  final TextStyle? styleOverridden;
 
   /// The variant text style to apply.
   final WxTextVariantBuilder? variant;
@@ -835,6 +845,13 @@ class WxText extends OutlinedText {
 
   /// Shortcut to [style.height]
   final double? height;
+
+  /// If non-null, the style to use for this text.
+  ///
+  /// If the style's "inherit" property is true, the style will be merged with
+  /// the closest enclosing [DefaultTextStyle]. Otherwise, the style will
+  /// replace the closest enclosing [DefaultTextStyle].
+  final TextStyle? styleOverridden;
 
   /// Collected text style from shortcuts
   TextStyle get styleFromShortcuts => TextStyle(

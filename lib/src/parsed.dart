@@ -1,10 +1,11 @@
 import 'package:flutter/widgets.dart';
+import 'base.dart';
 import 'filter.dart';
 
-class ParsedText extends Text {
+class ParsedText extends BaseText {
   /// Create a parsed text widget
   const ParsedText(
-    this.text, {
+    super.text, {
     super.key,
     super.style,
     super.strutStyle,
@@ -18,6 +19,7 @@ class ParsedText extends Text {
     super.semanticsLabel,
     super.textWidthBasis,
     super.textHeightBehavior,
+    super.selectionColor,
     this.highlight,
     this.highlightStyle,
     this.highlightOnTap,
@@ -27,10 +29,7 @@ class ParsedText extends Text {
     this.multiLine = false,
     this.unicode = false,
     this.dotAll = false,
-  }) : super(text);
-
-  /// The text to display.
-  final String text;
+  });
 
   /// The text to highlight
   final String? highlight;
@@ -67,14 +66,25 @@ class ParsedText extends Text {
   /// including line terminators.
   final bool dotAll;
 
-  @override
-  Widget build(BuildContext context) {
-    if (filterDisabled) {
-      return super.build(context);
-    }
+  /// Creates and returns a new [RegExp] object based on the provided [source] string
+  /// and optional configuration flags. The [source] string represents the actual regular
+  /// expression pattern you want to match against text.
+  RegExp createRegExp(String source) => RegExp(
+        source,
+        multiLine: multiLine,
+        caseSensitive: caseSensitive,
+        dotAll: dotAll,
+        unicode: unicode,
+      );
+
+  /// This getter calculates and returns a combined list of [WxTextFilter] objects
+  /// representing the actual filters applied to text content.
+  List<WxTextFilter> get effectiveFilter {
+    // return empty list if filter disabled
+    if (filterDisabled) return [];
 
     final highlightSearch = highlight;
-    final effectiveFilter = [
+    return [
       ...filter,
       if (highlightSearch != null && highlightSearch.isNotEmpty)
         WxTextFilter.highlight(
@@ -83,45 +93,42 @@ class ParsedText extends Text {
           onTap: highlightOnTap,
         ),
     ];
+  }
 
+  /// The text to display.
+  ///
+  /// This will be null if a [textSpan] is provided instead.
+  @override
+  String? get data => null;
+
+  /// The text to display as a [InlineSpan].
+  ///
+  /// This will be null if [data] is provided instead.
+  @override
+  InlineSpan? get textSpan {
     if (effectiveFilter.isEmpty || text.isEmpty) {
-      return super.build(context);
+      return TextSpan(text: text);
     }
 
-    final patterns = RegExp(
+    final patterns = createRegExp(
       '(${effectiveFilter.map((e) => e.pattern).join('|')})',
-      multiLine: multiLine,
-      caseSensitive: caseSensitive,
-      unicode: unicode,
-      dotAll: dotAll,
     );
 
     if (!patterns.hasMatch(text)) {
-      return super.build(context);
+      return TextSpan(text: text);
     }
 
-    List<InlineSpan> spans = [];
-
     final builders = {for (var v in effectiveFilter) v.pattern: v.builder};
-
+    List<InlineSpan> spans = [];
     text.splitMapJoin(
       patterns,
       onMatch: (match) {
         final matchText = match[0]!;
         final pattern = builders.keys.firstWhere((element) {
-          final reg = RegExp(
-            element,
-            multiLine: multiLine,
-            caseSensitive: caseSensitive,
-            dotAll: dotAll,
-            unicode: unicode,
-          );
-          return reg.hasMatch(matchText);
+          return createRegExp(element).hasMatch(matchText);
         });
         final span = builders[pattern]?.call(matchText);
-        if (span != null) {
-          spans.add(span);
-        }
+        if (span != null) spans.add(span);
         return '';
       },
       onNonMatch: (nonMatchText) {
@@ -130,19 +137,6 @@ class ParsedText extends Text {
       },
     );
 
-    return Text.rich(
-      TextSpan(children: spans),
-      strutStyle: strutStyle,
-      textAlign: textAlign,
-      textDirection: textDirection,
-      textScaler: textScaler,
-      locale: locale,
-      softWrap: softWrap,
-      overflow: overflow,
-      maxLines: maxLines,
-      semanticsLabel: semanticsLabel,
-      textWidthBasis: textWidthBasis,
-      textHeightBehavior: textHeightBehavior,
-    );
+    return TextSpan(children: spans);
   }
 }

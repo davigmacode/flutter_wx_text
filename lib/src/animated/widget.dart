@@ -220,7 +220,7 @@ class WxAnimatedText extends AnimatedRepeatable {
     return (child, final state) {
       final config = child as WxText;
       final value = state.animation.value.clamp(0, 1);
-      final chars = config.data!.characters;
+      final chars = config.text.characters;
       final count = (value * chars.length).round();
       final text = chars.take(count).toString();
 
