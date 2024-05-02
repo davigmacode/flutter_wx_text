@@ -1,26 +1,48 @@
 import 'package:flutter/widgets.dart';
 
-/// Designed to manage the visibility of spoiler content.
+/// Manage the visibility of spoiler content.
+///
 /// It provides a mechanism to toggle between an expanded (visible)
 /// and collapsed (hidden) state for spoiler text.
 class WxSpoilerController extends ChangeNotifier {
-  /// Creates a new [WxSpoilerController] instance.
+  /// Creates a new instance of [WxSpoilerController].
+  ///
+  /// By default, the spoiler content starts collapsed (not visible).
+  ///
+  /// * [expanded] (optional): The initial visibility state of the spoiler.
+  /// Defaults to `false` (collapsed).
+  /// * [onExpanded] (optional): A callback function that is invoked whenever
+  /// the `expanded` property changes. It receives the new visibility state
+  /// (`true` for expanded, `false` for collapsed).
   WxSpoilerController({
     this.expanded = false,
+    this.onExpanded,
   });
 
   /// Indicates text visibility (expanded or collapsed).
   bool expanded;
 
-  /// Triggers a state change in the expanded property.
-  /// It essentially flips the current visibility state
-  /// - if the spoiler is currently expanded, it will be collapsed, and vice versa.
-  /// The notifyListeners() method is called to notify any widgets
-  /// that are listening to changes in the expanded property,
-  /// allowing them to update their UI accordingly.
+  /// A callback function that is invoked whenever the `expanded` property changes.
+  ///
+  /// This can be used to update the UI of widgets that are listening to changes
+  /// in the spoiler's visibility state. The callback receives the new visibility
+  /// state (`true` for expanded, `false` for collapsed).
+  ValueSetter? onExpanded;
+
+  /// Toggles the visibility of the spoiler content.
+  ///
+  /// This method flips the current visibility state. If the spoiler is
+  /// currently expanded, it will be collapsed. Conversely, if it's collapsed,
+  /// it will be expanded.
+  ///
+  /// The `notifyListeners()` method is called to notify any widgets that are
+  /// listening to changes in the `expanded` property, allowing them to update
+  /// their UI accordingly. You might also consider invoking the `onExpanded`
+  /// callback here to provide additional flexibility.
   void toggle() {
     expanded = !expanded;
     notifyListeners();
+    onExpanded?.call(expanded);
   }
 }
 

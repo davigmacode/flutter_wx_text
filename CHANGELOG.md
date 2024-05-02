@@ -1,3 +1,13 @@
+## 3.0.0
+
+* Added supports for text outline and gradient
+* Added supports for animated text
+* Added style shortcuts
+* Added constructor to create from another instance configuration
+* Added option to debug min lines
+* Refactor spoiler text, use maxLines instead of trimLines, renamed builder to wrapper
+* Refactor parsed text, added base text, and added selectionColor
+
 ## 2.0.2
 
 * Adjust sdk constraints
