@@ -1,5 +1,6 @@
 /* spell-checker: disable */
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:wx_text/wx_text.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -57,7 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
             'WxText',
             fontWeight: FontWeight.bold,
             outlineColor: Colors.white,
-            outlineWidth: 1,
+            outlineWidth: kIsWeb ? 0.1 : 2,
             shadows: [
               Shadow(
                 color: Colors.green,
@@ -143,7 +144,7 @@ class _MyHomePageState extends State<MyHomePage> {
             color: Colors.white,
             fontWeight: FontWeight.bold,
             outlineColor: Colors.black87,
-            outlineWidth: 1,
+            outlineWidth: kIsWeb ? .3 : 1.5,
             letterSpacing: 1.1,
           ),
         ),
