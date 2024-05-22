@@ -57,7 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
             'WxText',
             fontWeight: FontWeight.bold,
             outlineColor: Colors.white,
-            outlineWidth: 1.5,
+            outlineWidth: 1,
             shadows: [
               Shadow(
                 color: Colors.green,
@@ -143,7 +143,7 @@ class _MyHomePageState extends State<MyHomePage> {
             color: Colors.white,
             fontWeight: FontWeight.bold,
             outlineColor: Colors.black87,
-            outlineWidth: 1.5,
+            outlineWidth: 1,
             letterSpacing: 1.1,
           ),
         ),
