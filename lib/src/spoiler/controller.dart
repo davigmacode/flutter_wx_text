@@ -15,12 +15,21 @@ class WxSpoilerController extends ChangeNotifier {
   /// the `expanded` property changes. It receives the new visibility state
   /// (`true` for expanded, `false` for collapsed).
   WxSpoilerController({
-    this.expanded = false,
+    bool expanded = false,
     this.onExpanded,
-  });
+  }) : _expanded = expanded;
+
+  bool _expanded;
 
   /// Indicates text visibility (expanded or collapsed).
-  bool expanded;
+  bool get expanded => _expanded;
+  set expanded(bool value) {
+    if (_expanded != value) {
+      _expanded = value;
+      notifyListeners();
+      onExpanded?.call(_expanded);
+    }
+  }
 
   /// A callback function that is invoked whenever the `expanded` property changes.
   ///
@@ -29,20 +38,19 @@ class WxSpoilerController extends ChangeNotifier {
   /// state (`true` for expanded, `false` for collapsed).
   ValueSetter? onExpanded;
 
+  /// Expands the spoiler content.
+  void expand() => expanded = true;
+
+  /// Collapses the spoiler content.
+  void collapse() => expanded = false;
+
   /// Toggles the visibility of the spoiler content.
   ///
   /// This method flips the current visibility state. If the spoiler is
   /// currently expanded, it will be collapsed. Conversely, if it's collapsed,
   /// it will be expanded.
-  ///
-  /// The `notifyListeners()` method is called to notify any widgets that are
-  /// listening to changes in the `expanded` property, allowing them to update
-  /// their UI accordingly. You might also consider invoking the `onExpanded`
-  /// callback here to provide additional flexibility.
   void toggle() {
     expanded = !expanded;
-    notifyListeners();
-    onExpanded?.call(expanded);
   }
 }
 

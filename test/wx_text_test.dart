@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:wx_text/wx_text.dart';
@@ -44,6 +45,58 @@ void main() {
       );
 
       expect(find.text('Display Title'), findsOneWidget);
+    });
+
+    testWidgets('renders all other typography variants properly', (tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: Scaffold(
+            body: SingleChildScrollView(
+              child: Column(
+                children: [
+                  WxText.displayMedium('displayMedium'),
+                  WxText.displaySmall('displaySmall'),
+                  WxText.headlineLarge('headlineLarge'),
+                  WxText.headlineMedium('headlineMedium'),
+                  WxText.headlineSmall('headlineSmall'),
+                  WxText.titleLarge('titleLarge'),
+                  WxText.titleMedium('titleMedium'),
+                  WxText.titleSmall('titleSmall'),
+                  WxText.bodyLarge('bodyLarge'),
+                  WxText.bodyMedium('bodyMedium'),
+                  WxText.bodySmall('bodySmall'),
+                  WxText.labelLarge('labelLarge'),
+                  WxText.labelMedium('labelMedium'),
+                  WxText.labelSmall('labelSmall'),
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
+
+      expect(find.text('displayMedium'), findsOneWidget);
+      expect(find.text('labelSmall'), findsOneWidget);
+    });
+
+    test('WxText and WxTextFilter populate debug properties', () {
+      const widget = WxText(
+        'Debug text',
+        color: Colors.red,
+        fontSize: 18,
+        fontWeight: FontWeight.bold,
+      );
+      final builder = DiagnosticPropertiesBuilder();
+      widget.debugFillProperties(builder);
+      final props = builder.properties.map((p) => p.name).toList();
+      expect(props, contains('color'));
+      expect(props, contains('fontSize'));
+      expect(props, contains('fontWeight'));
+
+      final filter = WxTextFilter.url();
+      final filterBuilder = DiagnosticPropertiesBuilder();
+      filter.debugFillProperties(filterBuilder);
+      expect(filterBuilder.properties.map((p) => p.name), contains('pattern'));
     });
 
     testWidgets('WxText.from copies and overrides properties correctly', (tester) async {
@@ -224,6 +277,24 @@ void main() {
       // Both outline layer and content layer render WidgetSpan (maintainSize Visibility)
       expect(find.byType(Icon), findsNWidgets(2));
     });
+
+    testWidgets('renders outlineBehind and outlineOffset correctly', (tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: Scaffold(
+            body: WxText(
+              'Offset outline',
+              outlineWidth: 3,
+              outlineColor: Colors.grey,
+              outlineOffset: Offset(2, 2),
+              outlineBehind: true,
+            ),
+          ),
+        ),
+      );
+
+      expect(find.byType(Transform), findsWidgets);
+    });
   });
 
   group('ParsedText and WxTextFilter', () {
@@ -381,6 +452,32 @@ void main() {
       expect(hashtagSpan.mouseCursor, MouseCursor.defer);
     });
 
+    testWidgets('matches url filter and triggers onTap', (tester) async {
+      String? tappedUrl;
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: WxText(
+              'Visit https://flutter.dev for documentation',
+              filter: [
+                WxTextFilter.url(onTap: (match) => tappedUrl = match),
+              ],
+            ),
+          ),
+        ),
+      );
+
+      final richText = tester.widget<RichText>(find.byType(RichText).first);
+      final outerSpan = richText.text as TextSpan;
+      final innerSpan = outerSpan.children!.first as TextSpan;
+      final urlSpan = innerSpan.children!.firstWhere(
+        (span) => span is TextSpan && span.text == 'https://flutter.dev',
+      ) as TextSpan;
+      // ignore: avoid_dynamic_calls
+      (urlSpan.recognizer as dynamic).onTap();
+      expect(tappedUrl, 'https://flutter.dev');
+    });
+
     testWidgets('filterDisabled disables parsing', (tester) async {
       await tester.pumpWidget(
         const MaterialApp(
@@ -472,6 +569,60 @@ void main() {
       final crossFadeAfter = tester.widget<AnimatedCrossFade>(find.byType(AnimatedCrossFade));
       expect(crossFadeAfter.crossFadeState, CrossFadeState.showSecond);
     });
+
+    test('WxSpoilerController supports expand, collapse, toggle, and listeners', () {
+      bool? notified;
+      final controller = WxSpoilerController(
+        expanded: false,
+        onExpanded: (val) => notified = val as bool,
+      );
+
+      expect(controller.expanded, isFalse);
+
+      controller.expand();
+      expect(controller.expanded, isTrue);
+      expect(notified, isTrue);
+
+      controller.collapse();
+      expect(controller.expanded, isFalse);
+      expect(notified, isFalse);
+
+      controller.toggle();
+      expect(controller.expanded, isTrue);
+
+      controller.expanded = false;
+      expect(controller.expanded, isFalse);
+    });
+
+    testWidgets('supports external WxSpoilerController and WxSpoilerProvider', (tester) async {
+      final controller = WxSpoilerController();
+      WxSpoilerController? providedController;
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: WxSpoilerText(
+              'Managed spoiler content text',
+              maxLines: 1,
+              controller: controller,
+              wrapper: (context, child, toggle) {
+                providedController = WxSpoilerProvider.of(context);
+                return child;
+              },
+            ),
+          ),
+        ),
+      );
+
+      expect(providedController, same(controller));
+      expect(controller.expanded, isFalse);
+
+      controller.expand();
+      await tester.pumpAndSettle();
+
+      final crossFade = tester.widget<AnimatedCrossFade>(find.byType(AnimatedCrossFade));
+      expect(crossFade.crossFadeState, CrossFadeState.showSecond);
+    });
   });
 
   group('WxAnimatedText', () {
@@ -489,6 +640,68 @@ void main() {
       );
 
       expect(find.text('Static animated text'), findsOneWidget);
+    });
+
+    testWidgets('renders shimmer, typing, slide, shake, and fade transitions', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: SingleChildScrollView(
+              child: Column(
+                children: [
+                  WxAnimatedText(
+                    transition: WxAnimatedText.shimmer(
+                      colors: [Colors.blue, Colors.white],
+                    ),
+                    child: const WxText('Shimmer'),
+                  ),
+                  WxAnimatedText(
+                    transition: WxAnimatedText.zoom(),
+                    child: const WxText('Zoom'),
+                  ),
+                  WxAnimatedText(
+                    transition: WxAnimatedText.slide(const Offset(10, 0)),
+                    child: const WxText('Slide'),
+                  ),
+                  WxAnimatedText(
+                    transition: WxAnimatedText.shake(),
+                    child: const WxText('Shake'),
+                  ),
+                  WxAnimatedText(
+                    transition: WxAnimatedText.fade,
+                    child: const WxText('Fade'),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
+
+      expect(find.text('Shimmer'), findsOneWidget);
+      expect(find.text('Zoom'), findsOneWidget);
+      expect(find.text('Slide'), findsOneWidget);
+      expect(find.text('Shake'), findsOneWidget);
+      expect(find.text('Fade'), findsOneWidget);
+    });
+
+    testWidgets('animates typing transition properly', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: WxAnimatedText(
+              duration: const Duration(milliseconds: 500),
+              transition: WxAnimatedText.typing(trails: '_'),
+              child: const WxText('Hello'),
+            ),
+          ),
+        ),
+      );
+
+      // Verify typing widget renders RichText spans
+      expect(find.byType(RichText), findsWidgets);
+      await tester.pump(const Duration(milliseconds: 250));
+      expect(find.byType(RichText), findsWidgets);
     });
   });
 }

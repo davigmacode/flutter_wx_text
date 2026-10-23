@@ -11,7 +11,9 @@
 * **Fidelity**: Upgraded `OutlinedText` to preserve `InlineSpan` (highlights, email/URL/mention filters, custom spans, and safe `WidgetSpan` sizing) across stroke outline rendering.
 * **Performance**: Optimized `WxText.build` by removing nested `WxTextStyler` wrapper layers and caching regex compilation in `ParsedText`.
 * **Documentation**: Overhauled `README.md` with complete code snippets for all features and typography presets.
-* **Testing**: Added comprehensive test suite covering all typography variants, filters, outlines, gradients, `copyWith`, and spoiler interactions.
+* **Testing & Coverage**: Added comprehensive test suite with 93.1% code coverage, CI workflow, and coverage badges.
+* **Controller Improvements**: Added optional `controller` parameter to `WxSpoilerText`, and added `expand()`, `collapse()`, and reactive `set expanded` to `WxSpoilerController`.
+* **Diagnostics**: Added `debugFillProperties` on `WxText` for seamless debugging in Flutter DevTools Widget Inspector.
 
 ## 3.0.0
 

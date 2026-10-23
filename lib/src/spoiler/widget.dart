@@ -110,12 +110,16 @@ class WxSpoilerText extends WxText {
     super.wordSpacing,
     super.textBaseline,
     super.height,
+    this.controller,
     this.expanded = false,
     this.onExpanded,
     this.filterDisabledOnCollapsed = false,
     this.duration = const Duration(milliseconds: 200),
     this.wrapper = WxSpoilerText.defaultWrapper,
   });
+
+  /// An optional controller to manage the spoiler state externally.
+  final WxSpoilerController? controller;
 
   /// Determines initial text visibility (expanded or collapsed).
   final bool expanded;
@@ -168,6 +172,7 @@ class WxSpoilerText extends WxText {
     );
 
     return _WxSpoilerView(
+      controller: controller,
       expanded: expanded,
       onExpanded: onExpanded,
       duration: duration,
@@ -180,6 +185,7 @@ class WxSpoilerText extends WxText {
 
 class _WxSpoilerView extends StatefulWidget {
   const _WxSpoilerView({
+    this.controller,
     required this.expanded,
     this.onExpanded,
     required this.duration,
@@ -188,6 +194,7 @@ class _WxSpoilerView extends StatefulWidget {
     required this.expandedText,
   });
 
+  final WxSpoilerController? controller;
   final bool expanded;
   final ValueSetter? onExpanded;
   final Duration duration;
@@ -200,51 +207,67 @@ class _WxSpoilerView extends StatefulWidget {
 }
 
 class _WxSpoilerViewState extends State<_WxSpoilerView> {
-  late final WxSpoilerController _controller;
+  WxSpoilerController? _internalController;
+  WxSpoilerController get _effectiveController =>
+      widget.controller ?? _internalController!;
 
   @override
   void initState() {
     super.initState();
-    _controller = WxSpoilerController(
-      expanded: widget.expanded,
-      onExpanded: widget.onExpanded,
-    );
+    if (widget.controller == null) {
+      _internalController = WxSpoilerController(
+        expanded: widget.expanded,
+        onExpanded: widget.onExpanded,
+      );
+    }
   }
 
   @override
   void didUpdateWidget(covariant _WxSpoilerView oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.onExpanded != widget.onExpanded) {
-      _controller.onExpanded = widget.onExpanded;
+    if (widget.controller == null && oldWidget.controller != null) {
+      _internalController = WxSpoilerController(
+        expanded: widget.expanded,
+        onExpanded: widget.onExpanded,
+      );
+    } else if (widget.controller != null && oldWidget.controller == null) {
+      _internalController?.dispose();
+      _internalController = null;
     }
-    if (oldWidget.expanded != widget.expanded &&
-        widget.expanded != _controller.expanded) {
-      _controller.expanded = widget.expanded;
+
+    if (widget.controller == null) {
+      if (oldWidget.onExpanded != widget.onExpanded) {
+        _internalController?.onExpanded = widget.onExpanded;
+      }
+      if (oldWidget.expanded != widget.expanded &&
+          widget.expanded != _internalController?.expanded) {
+        _internalController?.expanded = widget.expanded;
+      }
     }
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _internalController?.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return WxSpoilerProvider(
-      controller: _controller,
+      controller: _effectiveController,
       child: ListenableBuilder(
-        listenable: _controller,
+        listenable: _effectiveController,
         builder: (context, _) {
           final child = AnimatedCrossFade(
             duration: widget.duration,
-            crossFadeState: _controller.expanded
+            crossFadeState: _effectiveController.expanded
                 ? CrossFadeState.showSecond
                 : CrossFadeState.showFirst,
             firstChild: widget.collapsedText,
             secondChild: widget.expandedText,
           );
-          return widget.wrapper(context, child, _controller.toggle);
+          return widget.wrapper(context, child, _effectiveController.toggle);
         },
       ),
     );

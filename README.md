@@ -1,9 +1,11 @@
 # wx_text
 
 [![Pub Version](https://img.shields.io/pub/v/wx_text?color=blue)](https://pub.dev/packages/wx_text)
-![GitHub](https://img.shields.io/github/license/davigmacode/flutter_wx_text)
-[![GitHub](https://badgen.net/badge/icon/buymeacoffee?icon=buymeacoffee&color=yellow&label)](https://www.buymeacoffee.com/davigmacode)
-[![GitHub](https://badgen.net/badge/icon/ko-fi?icon=kofi&color=red&label)](https://ko-fi.com/davigmacode)
+[![Test](https://github.com/davigmacode/flutter_wx_text/actions/workflows/test.yml/badge.svg)](https://github.com/davigmacode/flutter_wx_text/actions/workflows/test.yml)
+[![Coverage](https://codecov.io/gh/davigmacode/flutter_wx_text/branch/main/graph/badge.svg)](https://codecov.io/gh/davigmacode/flutter_wx_text)
+[![License](https://img.shields.io/github/license/davigmacode/flutter_wx_text)](https://github.com/davigmacode/flutter_wx_text/blob/main/LICENSE)
+[![Buy Me A Coffee](https://badgen.net/badge/icon/buymeacoffee?icon=buymeacoffee&color=yellow&label)](https://www.buymeacoffee.com/davigmacode)
+[![Ko-Fi](https://badgen.net/badge/icon/ko-fi?icon=kofi&color=red&label)](https://ko-fi.com/davigmacode)
 
 Supercharge your Flutter text experience. `wx_text` is an all-in-one extension of Flutter's standard `Text` widget, packing **Material 3 typography presets**, **direct style shortcuts**, **regex pattern filtering (URLs, emails, mentions, hashtags)**, **text highlighting**, **pixel-perfect outlines**, **gradient shaders**, **minimum line constraints**, **interactive spoiler/read-more expansion**, and **captivating animations** into a single cohesive API.
 
