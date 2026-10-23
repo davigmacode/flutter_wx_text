@@ -58,6 +58,28 @@ class WxTextFilter with Diagnosticable {
         onTap: onTap,
       );
 
+  /// Factory for matching `@mention` usernames.
+  factory WxTextFilter.mention({
+    TextStyle? style,
+    WxTextFilterTap? onTap,
+  }) =>
+      WxTextFilter.textSpan(
+        pattern: r"@[\w\.-]+",
+        style: style,
+        onTap: onTap,
+      );
+
+  /// Factory for matching `#hashtag` tags.
+  factory WxTextFilter.hashtag({
+    TextStyle? style,
+    WxTextFilterTap? onTap,
+  }) =>
+      WxTextFilter.textSpan(
+        pattern: r"#[\w\.-]+",
+        style: style,
+        onTap: onTap,
+      );
+
   final String pattern;
   final WxTextFilterBuilder builder;
 

@@ -16,13 +16,6 @@ Future<void> openURL(String url) async {
   }
 }
 
-Future<void> sendMail(String address) async {
-  final Uri uri = Uri.parse('mailto:$address');
-  if (!await launchUrl(uri)) {
-    throw Exception('Could not send mail $uri');
-  }
-}
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -152,19 +145,12 @@ class _MyHomePageState extends State<MyHomePage> {
         Example(
           title: 'Parse Special Text',
           child: WxText(
-            'Enhanced text processing with email and URL converted to clickable links, and  highlighted text\n\n'
+            'Enhanced text processing with URL converted to clickable links, and highlighted text\n\n'
             'https://pub.dev/packages/wx_text\n'
-            'https://pub.dev/publishers/widgetarian.com\n'
-            'davigmacode@gmail.com',
+            'https://pub.dev/publishers/widgetarian.com',
             highlight: 'highlighted',
             textAlign: TextAlign.justify,
             filter: [
-              WxTextFilter.highlight(
-                search: 'email',
-                style: TextStyle(
-                  backgroundColor: Colors.lightBlue.shade200,
-                ),
-              ),
               WxTextFilter.highlight(
                 search: 'url',
                 style: TextStyle(
@@ -177,7 +163,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   backgroundColor: Colors.green.shade200,
                 ),
               ),
-              WxTextFilter.email(onTap: sendMail),
               WxTextFilter.url(onTap: openURL),
             ],
           ),
@@ -188,14 +173,12 @@ class _MyHomePageState extends State<MyHomePage> {
           child: WxSpoilerText(
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n\n'
             'https://pub.dev/packages/wx_text\n'
-            'https://pub.dev/publishers/widgetarian.com\n'
-            'davigmacode@gmail.com',
+            'https://pub.dev/publishers/widgetarian.com',
             highlight: 'do',
             maxLines: 5,
             textAlign: TextAlign.justify,
             filterDisabledOnCollapsed: true,
             filter: [
-              WxTextFilter.email(onTap: sendMail),
               WxTextFilter.url(onTap: openURL),
             ],
             wrapper: (context, text, toggle) {

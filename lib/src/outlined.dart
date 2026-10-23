@@ -54,23 +54,48 @@ class OutlinedText extends GradientText {
   /// Whether the outline position is behind the text.
   final bool outlineBehind;
 
+  static InlineSpan _applyOutlineStyle(InlineSpan span, Paint outlinePaint) {
+    if (span is TextSpan) {
+      final style = span.style;
+      final newStyle = (style ?? const TextStyle()).copyWith(
+        foreground: outlinePaint,
+        color: null,
+        shadows: const [],
+        backgroundColor: null,
+      );
+      return TextSpan(
+        text: span.text,
+        children: span.children
+            ?.map((child) => _applyOutlineStyle(child, outlinePaint))
+            .toList(),
+        style: newStyle,
+      );
+    }
+    return span;
+  }
+
   @override
   Widget build(BuildContext context) {
     Widget result = super.build(context);
 
     if (outlineWidth > 0) {
       final textStyle = DefaultTextStyle.of(context).style;
-      final textOutline = Transform.translate(
-        offset: outlineOffset,
-        child: Text(
-          text,
-          style: textStyle.copyWith(
-            foreground: Paint()
-              ..style = PaintingStyle.stroke
-              ..strokeWidth = outlineWidth
-              ..color = outlineColor,
-            shadows: [],
-          ),
+      final strokePaint = Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = outlineWidth
+        ..color = outlineColor;
+
+      final strokeStyle = textStyle.copyWith(
+        foreground: strokePaint,
+        shadows: const [],
+      );
+
+      final span = textSpan;
+      final Widget outlineWidget;
+      if (span != null) {
+        outlineWidget = Text.rich(
+          _applyOutlineStyle(span, strokePaint) as TextSpan,
+          style: strokeStyle,
           strutStyle: strutStyle,
           textAlign: textAlign,
           textDirection: textDirection,
@@ -82,8 +107,32 @@ class OutlinedText extends GradientText {
           semanticsLabel: semanticsLabel,
           textWidthBasis: textWidthBasis,
           textHeightBehavior: textHeightBehavior,
-        ),
-      );
+        );
+      } else {
+        outlineWidget = Text(
+          text,
+          style: strokeStyle,
+          strutStyle: strutStyle,
+          textAlign: textAlign,
+          textDirection: textDirection,
+          textScaler: textScaler,
+          locale: locale,
+          softWrap: softWrap,
+          overflow: overflow,
+          maxLines: maxLines,
+          semanticsLabel: semanticsLabel,
+          textWidthBasis: textWidthBasis,
+          textHeightBehavior: textHeightBehavior,
+        );
+      }
+
+      final textOutline = outlineOffset == Offset.zero
+          ? outlineWidget
+          : Transform.translate(
+              offset: outlineOffset,
+              child: outlineWidget,
+            );
+
       result = Stack(
         children: [
           if (outlineBehind == true) textOutline,

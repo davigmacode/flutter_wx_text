@@ -167,22 +167,86 @@ class WxSpoilerText extends WxText {
       overflow: TextOverflow.visible,
     );
 
+    return _WxSpoilerView(
+      expanded: expanded,
+      onExpanded: onExpanded,
+      duration: duration,
+      wrapper: wrapper,
+      collapsedText: collapsedText,
+      expandedText: expandedText,
+    );
+  }
+}
+
+class _WxSpoilerView extends StatefulWidget {
+  const _WxSpoilerView({
+    required this.expanded,
+    this.onExpanded,
+    required this.duration,
+    required this.wrapper,
+    required this.collapsedText,
+    required this.expandedText,
+  });
+
+  final bool expanded;
+  final ValueSetter? onExpanded;
+  final Duration duration;
+  final WxSpoilerBuilder wrapper;
+  final Widget collapsedText;
+  final Widget expandedText;
+
+  @override
+  State<_WxSpoilerView> createState() => _WxSpoilerViewState();
+}
+
+class _WxSpoilerViewState extends State<_WxSpoilerView> {
+  late final WxSpoilerController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = WxSpoilerController(
+      expanded: widget.expanded,
+      onExpanded: widget.onExpanded,
+    );
+  }
+
+  @override
+  void didUpdateWidget(covariant _WxSpoilerView oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.onExpanded != widget.onExpanded) {
+      _controller.onExpanded = widget.onExpanded;
+    }
+    if (oldWidget.expanded != widget.expanded &&
+        widget.expanded != _controller.expanded) {
+      _controller.expanded = widget.expanded;
+    }
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return WxSpoilerProvider(
-      controller: WxSpoilerController(
-        expanded: expanded,
+      controller: _controller,
+      child: ListenableBuilder(
+        listenable: _controller,
+        builder: (context, _) {
+          final child = AnimatedCrossFade(
+            duration: widget.duration,
+            crossFadeState: _controller.expanded
+                ? CrossFadeState.showSecond
+                : CrossFadeState.showFirst,
+            firstChild: widget.collapsedText,
+            secondChild: widget.expandedText,
+          );
+          return widget.wrapper(context, child, _controller.toggle);
+        },
       ),
-      child: Builder(builder: (context) {
-        final state = WxSpoilerProvider.of(context);
-        final child = AnimatedCrossFade(
-          duration: duration,
-          crossFadeState: state.expanded
-              ? CrossFadeState.showSecond
-              : CrossFadeState.showFirst,
-          firstChild: collapsedText,
-          secondChild: expandedText,
-        );
-        return wrapper(context, child, state.toggle);
-      }),
     );
   }
 }

@@ -1,3 +1,6 @@
 media/
+build/
+.dart_tool/
+.fvm/
 example/*
 !example/lib

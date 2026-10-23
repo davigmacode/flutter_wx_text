@@ -106,33 +106,48 @@ class ParsedText extends BaseText {
   /// This will be null if [data] is provided instead.
   @override
   InlineSpan? get textSpan {
-    if (effectiveFilter.isEmpty || text.isEmpty) {
+    final filters = effectiveFilter;
+    if (filters.isEmpty || text.isEmpty) {
       return TextSpan(text: text);
     }
 
-    final patterns = createRegExp(
-      '(${effectiveFilter.map((e) => e.pattern).join('|')})',
+    final combinedPattern = createRegExp(
+      '(${filters.map((e) => e.pattern).join('|')})',
     );
 
-    if (!patterns.hasMatch(text)) {
+    if (!combinedPattern.hasMatch(text)) {
       return TextSpan(text: text);
     }
 
-    final builders = {for (var v in effectiveFilter) v.pattern: v.builder};
-    List<InlineSpan> spans = [];
+    // Pre-compile individual RegExps once to avoid re-compiling inside onMatch
+    final compiledFilters = [
+      for (final item in filters)
+        (regExp: createRegExp(item.pattern), builder: item.builder)
+    ];
+
+    final List<InlineSpan> spans = [];
     text.splitMapJoin(
-      patterns,
+      combinedPattern,
       onMatch: (match) {
         final matchText = match[0]!;
-        final pattern = builders.keys.firstWhere((element) {
-          return createRegExp(element).hasMatch(matchText);
-        });
-        final span = builders[pattern]?.call(matchText);
-        if (span != null) spans.add(span);
+        InlineSpan? span;
+        for (final item in compiledFilters) {
+          if (item.regExp.hasMatch(matchText)) {
+            span = item.builder(matchText);
+            break;
+          }
+        }
+        if (span != null) {
+          spans.add(span);
+        } else {
+          spans.add(TextSpan(text: matchText));
+        }
         return '';
       },
       onNonMatch: (nonMatchText) {
-        spans.add(TextSpan(text: nonMatchText));
+        if (nonMatchText.isNotEmpty) {
+          spans.add(TextSpan(text: nonMatchText));
+        }
         return '';
       },
     );

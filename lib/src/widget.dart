@@ -1,7 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'outlined.dart';
 import 'variant.dart';
-import 'styler.dart';
 
 /// A powerful widget that builds upon
 /// the familiar Flutter Text widget,
@@ -871,17 +870,35 @@ class WxText extends OutlinedText {
         height: height,
       );
 
+  bool get _hasShortcuts =>
+      color != null ||
+      backgroundColor != null ||
+      shadows != null ||
+      fontFamily != null ||
+      fontSize != null ||
+      fontWeight != null ||
+      fontStyle != null ||
+      letterSpacing != null ||
+      wordSpacing != null ||
+      textBaseline != null ||
+      height != null;
+
   @override
   Widget build(BuildContext context) {
-    return WxTextStyler(
-      style: styleOverridden,
-      variant: variant,
-      child: WxTextStyler(
-        style: styleFromShortcuts,
-        child: Builder(builder: (context) {
-          return super.build(context);
-        }),
-      ),
-    );
+    final variantStyle = variant?.call(context);
+    TextStyle? effectiveStyle =
+        variantStyle?.merge(styleOverridden) ?? styleOverridden;
+    if (_hasShortcuts) {
+      effectiveStyle =
+          effectiveStyle?.merge(styleFromShortcuts) ?? styleFromShortcuts;
+    }
+
+    if (effectiveStyle != null) {
+      return DefaultTextStyle.merge(
+        style: effectiveStyle,
+        child: Builder(builder: (context) => super.build(context)),
+      );
+    }
+    return super.build(context);
   }
 }

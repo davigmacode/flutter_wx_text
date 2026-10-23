@@ -1,8 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'parsed.dart';
 
-const _transparentColor = Color(0x00000000);
-
 /// The ConstrainedText Widget provides a text entry area
 /// with limitations on the number of displayed lines,
 /// ensuring content remains concise and visually appealing.
@@ -57,29 +55,29 @@ class ConstrainedText extends ParsedText {
     Widget result = super.build(context);
 
     if (minLines > 0) {
-      final textStyle = DefaultTextStyle.of(context).style;
-      result = Stack(
-        children: [
-          Text(
-            '\n' * (minLines - 1),
-            style: textStyle.copyWith(
-              color: _transparentColor,
-              backgroundColor: _transparentColor,
-            ),
-            strutStyle: strutStyle,
-            textAlign: textAlign,
-            textDirection: textDirection,
-            textScaler: textScaler,
-            locale: locale,
-            softWrap: softWrap,
-            overflow: overflow,
-            maxLines: maxLines,
-            semanticsLabel: semanticsLabel,
-            textWidthBasis: textWidthBasis,
-            textHeightBehavior: textHeightBehavior,
-          ),
-          result,
-        ],
+      final defaultTextStyle = DefaultTextStyle.of(context);
+      TextStyle effectiveTextStyle = style ?? const TextStyle();
+      if (style == null || style!.inherit) {
+        effectiveTextStyle = defaultTextStyle.style.merge(style);
+      }
+      final effectiveScaler =
+          textScaler ?? MediaQuery.maybeTextScalerOf(context) ?? TextScaler.noScaling;
+      final effectiveDirection =
+          textDirection ?? Directionality.maybeOf(context) ?? TextDirection.ltr;
+
+      final textPainter = TextPainter(
+        text: TextSpan(text: ' ', style: effectiveTextStyle),
+        textDirection: effectiveDirection,
+        textScaler: effectiveScaler,
+        strutStyle: strutStyle,
+        locale: locale,
+      )..layout();
+      final minHeight = textPainter.preferredLineHeight * minLines;
+      textPainter.dispose();
+
+      result = ConstrainedBox(
+        constraints: BoxConstraints(minHeight: minHeight),
+        child: result,
       );
 
       if (minLinesDebugColor != null) {

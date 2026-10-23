@@ -70,6 +70,9 @@ class WxAnimatedText extends AnimatedRepeatable {
   /// [wrapper]: control how the child widget is transformed based on
   /// the animation's progress and current state.
   ///
+  /// [disableAnimations]: Whether to disable animations, e.g. for accessibility.
+  /// When null, defaults to system setting via [MediaQuery.maybeDisableAnimationsOf].
+  ///
   /// [child]: The text widget that will be animated during the transition.
   /// This is a required parameter.
   const WxAnimatedText({
@@ -88,6 +91,7 @@ class WxAnimatedText extends AnimatedRepeatable {
     super.reverseDelay,
     super.reverseDuration,
     super.wrapper,
+    super.disableAnimations,
     super.onStart,
     super.onPause,
     super.onContinue,
@@ -98,6 +102,7 @@ class WxAnimatedText extends AnimatedRepeatable {
 
   /// Provides a convenient way to create basic sliding animations
   /// for your text widget within the [WxAnimatedText] widget.
+  ///
   /// Control the direction and distance of the slide using the [to] and [from] offsets.
   ///
   /// **[to]** (required, Offset) : Defines the ending position of
@@ -135,11 +140,11 @@ class WxAnimatedText extends AnimatedRepeatable {
   /// Creates a transition builder specifically
   /// designed for creating a shimmering effect.
   ///
-  /// **[colors]** (required, List<Color>) : A list of colors
+  /// **[colors]** (required, `List<Color>`) : A list of colors
   /// used to create the shimmering effect. The animation cycles
   /// through these colors to produce the shimmer.
   ///
-  /// **[stops]** (optional, List<double>) : A list of values between 0.0 and 1.0
+  /// **[stops]** (optional, `List<double>`) : A list of values between 0.0 and 1.0
   /// that specify the position of each color within the gradient. If omitted,
   /// colors will be spread evenly.
   ///
