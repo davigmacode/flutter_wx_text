@@ -1,5 +1,11 @@
 # wx_text
 
+> [!IMPORTANT]
+> **Repository Moved to Monorepo**: Active development of `wx_text` has migrated to the official [**davigmacode/flutter_wx**](https://github.com/davigmacode/flutter_wx) monorepo.
+> - Core text package: [`packages/wx_text`](https://github.com/davigmacode/flutter_wx/tree/main/packages/wx_text)
+> - Spoiler text package: [`packages/wx_text_spoiler`](https://github.com/davigmacode/flutter_wx/tree/main/packages/wx_text_spoiler)
+> - Animated text package: [`packages/wx_text_animated`](https://github.com/davigmacode/flutter_wx/tree/main/packages/wx_text_animated)
+
 [![Pub Version](https://img.shields.io/pub/v/wx_text?color=blue)](https://pub.dev/packages/wx_text)
 [![Test](https://github.com/davigmacode/flutter_wx_text/actions/workflows/test.yml/badge.svg)](https://github.com/davigmacode/flutter_wx_text/actions/workflows/test.yml)
 [![Coverage](https://codecov.io/gh/davigmacode/flutter_wx_text/branch/main/graph/badge.svg)](https://codecov.io/gh/davigmacode/flutter_wx_text)
