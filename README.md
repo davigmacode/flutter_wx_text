@@ -119,6 +119,9 @@ WxText(
     WxTextFilter.hashtag(
       onTap: (tag) => print('Tapped hashtag: $tag'),
     ),
+    WxTextFilter.phone(
+      onTap: (phone) => print('Call phone: $phone'),
+    ),
   ],
 );
 ```

@@ -65,6 +65,29 @@ void main() {
       expect(derived.fontSize, 16);
       expect(derived.maxLines, 4);
     });
+
+    testWidgets('WxText.copyWith copies and overrides properties correctly', (tester) async {
+      const original = WxText(
+        'Original',
+        color: Colors.red,
+        fontSize: 14,
+        maxLines: 1,
+        outlineWidth: 1.0,
+      );
+
+      final copy = original.copyWith(
+        text: 'Copied',
+        color: Colors.blue,
+        fontSize: 20,
+        outlineWidth: 2.5,
+      );
+
+      expect(copy.text, 'Copied');
+      expect(copy.color, Colors.blue);
+      expect(copy.fontSize, 20);
+      expect(copy.maxLines, 1);
+      expect(copy.outlineWidth, 2.5);
+    });
   });
 
   group('WxTextStyler', () {
@@ -169,6 +192,38 @@ void main() {
       );
       expect(find.byType(RichText), findsWidgets);
     });
+
+    testWidgets('handles WidgetSpan inside outline gracefully without errors', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: WxText(
+              'Prefix [icon] suffix',
+              outlineWidth: 2,
+              outlineColor: Colors.black,
+              filter: [
+                WxTextFilter(
+                  pattern: r'\[icon\]',
+                  builder: (match) => const WidgetSpan(
+                    child: Icon(Icons.star, size: 16),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+
+      expect(
+        find.descendant(
+          of: find.byType(WxText),
+          matching: find.byType(Stack),
+        ),
+        findsOneWidget,
+      );
+      // Both outline layer and content layer render WidgetSpan (maintainSize Visibility)
+      expect(find.byType(Icon), findsNWidgets(2));
+    });
   });
 
   group('ParsedText and WxTextFilter', () {
@@ -263,6 +318,67 @@ void main() {
       // ignore: avoid_dynamic_calls
       (hashtagSpan.recognizer as dynamic).onTap();
       expect(tappedHashtag, '#flutter');
+    });
+
+    testWidgets('matches phone filter and executes onTap', (tester) async {
+      String? tappedPhone;
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: WxText(
+              'Call me at +62 812-3456-7890 tomorrow',
+              filter: [
+                WxTextFilter.phone(
+                  onTap: (match) => tappedPhone = match,
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+
+      final richText = tester.widget<RichText>(find.byType(RichText).first);
+      final outerSpan = richText.text as TextSpan;
+      final innerSpan = outerSpan.children!.first as TextSpan;
+
+      final phoneSpan = innerSpan.children!.firstWhere(
+        (span) => span is TextSpan && span.text!.contains('812-3456-7890'),
+      ) as TextSpan;
+
+      expect(phoneSpan.recognizer, isNotNull);
+      // ignore: avoid_dynamic_calls
+      (phoneSpan.recognizer as dynamic).onTap();
+      expect(tappedPhone, '+62 812-3456-7890');
+    });
+
+    testWidgets('applies click mouseCursor on tap and defer when non-interactive', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: WxText(
+              'Clickable @davigma and non-clickable #flutter',
+              filter: [
+                WxTextFilter.mention(onTap: (match) {}),
+                WxTextFilter.hashtag(),
+              ],
+            ),
+          ),
+        ),
+      );
+
+      final richText = tester.widget<RichText>(find.byType(RichText).first);
+      final outerSpan = richText.text as TextSpan;
+      final innerSpan = outerSpan.children!.first as TextSpan;
+
+      final mentionSpan = innerSpan.children!.firstWhere(
+        (span) => span is TextSpan && span.text == '@davigma',
+      ) as TextSpan;
+      expect(mentionSpan.mouseCursor, SystemMouseCursors.click);
+
+      final hashtagSpan = innerSpan.children!.firstWhere(
+        (span) => span is TextSpan && span.text == '#flutter',
+      ) as TextSpan;
+      expect(hashtagSpan.mouseCursor, MouseCursor.defer);
     });
 
     testWidgets('filterDisabled disables parsing', (tester) async {

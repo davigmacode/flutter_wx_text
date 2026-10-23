@@ -2,14 +2,16 @@
 
 * **Dependency**: Upgraded to `animated_repeatable: ^1.2.0` with support for `disableAnimations`.
 * **SDK Alignment**: Updated environment SDK constraint to `sdk: '>=3.0.0 <4.0.0'` and upgraded to `flutter_lints: ^5.0.0`.
-* **New Filters**: Added `WxTextFilter.mention` and `WxTextFilter.hashtag` for social text parsing.
+* **Cloning & Overrides**: Added `WxText.copyWith(...)` for convenient widget reproduction with selective property modifications.
+* **New Filters**: Added `WxTextFilter.mention`, `WxTextFilter.hashtag`, and `WxTextFilter.phone` for rich interactive text parsing.
+* **Interactivity**: Added `mouseCursor` parameter on `WxTextFilter`, defaulting to `SystemMouseCursors.click` for clickable spans on Web and Desktop.
 * **Bug Fix**: Fixed `onExpanded` callback not being invoked in `WxSpoilerText`.
 * **Stability**: Refactored `WxSpoilerText` to maintain expanded state across parent widget rebuilds and properly dispose `WxSpoilerController`.
 * **Low-Level Layout**: Replaced `ConstrainedText` dummy newline stack with direct line-height measurement (`TextPainter.preferredLineHeight`) via `ConstrainedBox`.
-* **Fidelity**: Upgraded `OutlinedText` to preserve `InlineSpan` (highlights, email/URL/mention filters, custom spans) across stroke outline rendering.
+* **Fidelity**: Upgraded `OutlinedText` to preserve `InlineSpan` (highlights, email/URL/mention filters, custom spans, and safe `WidgetSpan` sizing) across stroke outline rendering.
 * **Performance**: Optimized `WxText.build` by removing nested `WxTextStyler` wrapper layers and caching regex compilation in `ParsedText`.
 * **Documentation**: Overhauled `README.md` with complete code snippets for all features and typography presets.
-* **Testing**: Added comprehensive test suite covering all typography variants, filters, outlines, gradients, and spoiler interactions.
+* **Testing**: Added comprehensive test suite covering all typography variants, filters, outlines, gradients, `copyWith`, and spoiler interactions.
 
 ## 3.0.0
 

@@ -70,6 +70,19 @@ class OutlinedText extends GradientText {
             .toList(),
         style: newStyle,
       );
+    } else if (span is WidgetSpan) {
+      return WidgetSpan(
+        alignment: span.alignment,
+        baseline: span.baseline,
+        style: span.style,
+        child: Visibility(
+          visible: false,
+          maintainSize: true,
+          maintainAnimation: true,
+          maintainState: true,
+          child: span.child,
+        ),
+      );
     }
     return span;
   }
@@ -94,7 +107,7 @@ class OutlinedText extends GradientText {
       final Widget outlineWidget;
       if (span != null) {
         outlineWidget = Text.rich(
-          _applyOutlineStyle(span, strokePaint) as TextSpan,
+          _applyOutlineStyle(span, strokePaint),
           style: strokeStyle,
           strutStyle: strutStyle,
           textAlign: textAlign,
